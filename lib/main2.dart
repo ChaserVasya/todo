@@ -1,88 +1,16 @@
-import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo/application/di/di.dart';
-import 'package:todo/presentation/blocs/todo_bloc/todo_bloc.dart';
-import 'package:todo/presentation/screens/main/widgets/todo_tile.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+/// Flutter code sample for [SliverAppBar].
+
+void main() => runApp(const AppBarApp());
+
+class AppBarApp extends StatelessWidget {
+  const AppBarApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton.large(
-        onPressed: () {},
-        child: const Icon(Icons.add),
-      ),
-      body: BlocProvider(
-        create: (_) => getIt.get<TodoBloc>(),
-        child: BlocBuilder<TodoBloc, TodoState>(
-          builder: (context, state) => state.when(
-            initial: () => const Center(child: CircularProgressIndicator()),
-            main: (todos) => CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  pinned: true,
-                  expandedHeight: 160.0,
-                  flexibleSpace: FlexibleSpaceBar(
-                    title: Column(
-                      children: [
-                        Text('Мои дела'),
-                        Text(
-                            'Выполнено - ${todos.map((e) => e.completed).count((e) => e)}')
-                      ],
-                    ),
-                  ),
-                  actions: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.visibility),
-                    )
-                  ],
-                ),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, i) {
-                      Widget child = TodoTile(
-                        todos[i],
-                        key: ObjectKey(todos[i]),
-                      );
-                      if (i == 0) {
-                        child = DecoratedBox(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(8),
-                            ),
-                          ),
-                          child: child,
-                        );
-                      } else if (i == todos.length - 1) {
-                        child = DecoratedBox(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.vertical(
-                              bottom: Radius.circular(8),
-                            ),
-                          ),
-                          child: child,
-                        );
-                      }
-                      return child;
-                    },
-                    childCount: todos.length,
-                  ),
-                ),
-                // const SliverToBoxAdapter(
-                //   child: ListTile(
-                //     leading: Icon(Icons.add),
-                //     title: Text('Новое'),
-                //   ),
-                // ),
-              ],
-            ),
-          ),
-        ),
-      ),
+    return const MaterialApp(
+      home: SliverAppBarExample(),
     );
   }
 }
@@ -135,7 +63,7 @@ class _SliverAppBarExampleState extends State<SliverAppBarExample> {
                   ),
                 );
               },
-              childCount: 3,
+              childCount: 20,
             ),
           ),
         ],

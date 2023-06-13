@@ -21,9 +21,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         add: (event) => _add(event, emit),
         delete: (event) => _delete(event, emit),
         update: (event) => _update(event, emit),
+        refresh: (_) => _refresh(emit),
       ),
       transformer: sequential(),
     );
+    add(const TodoEvent.refresh());
   }
 
   Future<void> _add(_Add event, Emitter<TodoState> emit) async {

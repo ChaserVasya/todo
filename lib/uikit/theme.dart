@@ -28,27 +28,22 @@ final theme = ThemeData(
   colorScheme: lightColorScheme,
   textTheme: const TextTheme(
     titleLarge: TextStyle(
-      height: 38,
       fontSize: 32,
       fontWeight: FontWeight.w500,
     ),
     titleMedium: TextStyle(
-      height: 32,
       fontSize: 20,
       fontWeight: FontWeight.w500,
     ),
     labelLarge: TextStyle(
-      height: 14,
       fontSize: 24,
       fontWeight: FontWeight.w500,
     ),
     bodyMedium: TextStyle(
-      height: 20,
       fontSize: 16,
       fontWeight: FontWeight.normal,
     ),
     labelMedium: TextStyle(
-      height: 20,
       fontSize: 14,
       fontWeight: FontWeight.normal,
     ),

@@ -19,6 +19,7 @@ dependencies:
   get_it: ^7.6.0
   intl: ^0.18.1
   bloc_concurrency: ^0.2.2
+  dartx: ^1.1.0
 
 dev_dependencies:
   flutter_test:
