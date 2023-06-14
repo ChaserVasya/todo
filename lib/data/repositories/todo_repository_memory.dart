@@ -22,6 +22,7 @@ class TodoRepositoryMemory implements TodoRepository {
     todos[newId] = todo.copyWith(id: newId);
   }
 
+  @override
   Future<void> update(Todo todo) async {
     if (todo.id == null) return;
     todos[todo.id!] = todo;
@@ -42,6 +43,21 @@ class TodoRepositoryMemory implements TodoRepository {
 
 final _stub = () {
   final stub = [
+    const Todo(
+      todo: 'Купить что-то',
+    ),
+    const Todo(
+      todo: 'Купить что-то',
+    ),
+    const Todo(
+      todo: 'Купить что-то',
+    ),
+    const Todo(
+      todo: 'Купить что-то',
+    ),
+    const Todo(
+      todo: 'Купить что-то',
+    ),
     const Todo(
       todo: 'Купить что-то',
     ),

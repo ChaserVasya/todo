@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:todo/application/app.dart';
 
 abstract class ColorsUI {
   static const red = Color(0xFFFF3B30);
@@ -24,28 +26,41 @@ const lightColorScheme = ColorScheme(
   onBackground: ColorsUI.white,
 );
 
+const textTheme = TextTheme(
+  titleLarge: TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.w500,
+  ),
+  titleMedium: TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+  ),
+  labelLarge: TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w500,
+  ),
+  bodyMedium: TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+  ),
+  labelMedium: TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+  ),
+);
+
 final theme = ThemeData(
   colorScheme: lightColorScheme,
-  textTheme: const TextTheme(
-    titleLarge: TextStyle(
-      fontSize: 32,
-      fontWeight: FontWeight.w500,
-    ),
-    titleMedium: TextStyle(
-      fontSize: 20,
-      fontWeight: FontWeight.w500,
-    ),
-    labelLarge: TextStyle(
-      fontSize: 24,
-      fontWeight: FontWeight.w500,
-    ),
-    bodyMedium: TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.normal,
-    ),
-    labelMedium: TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.normal,
+  textTheme: textTheme,
+  dividerTheme: const DividerThemeData(
+    color: Color(0x33000000),
+  ),
+  scaffoldBackgroundColor: const Color(0xFFF7F6F2),
+  appBarTheme: const AppBarTheme(
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarDividerColor: Colors.transparent,
     ),
   ),
 );
