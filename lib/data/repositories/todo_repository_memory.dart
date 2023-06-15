@@ -86,7 +86,7 @@ final _stub = () {
     ),
     Todo(
       todo: 'Купить что-то',
-      dateTime: DateTime.now(),
+      deadline: DateTime.now(),
     ),
   ];
   return [

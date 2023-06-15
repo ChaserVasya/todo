@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:todo/application/app.dart';
 
 abstract class ColorsUI {
   static const red = Color(0xFFFF3B30);
@@ -10,14 +9,17 @@ abstract class ColorsUI {
   static const grayLight = Color(0xFFD1D1D6);
   static const white = Colors.white;
   static const black = Colors.black;
+  static const textPrimary = Color(0x00000000);
+  static const textSecondary = Color(0x99000000);
+  static const textTertiary = Color(0x4D000000);
 }
 
 const lightColorScheme = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFFF7F6F2),
   onPrimary: Colors.black,
-  secondary: ColorsUI.white,
-  onSecondary: Colors.black,
+  secondary: ColorsUI.blue,
+  onSecondary: ColorsUI.white,
   surface: ColorsUI.white,
   onSurface: Colors.black,
   error: ColorsUI.red,
@@ -59,8 +61,13 @@ final theme = ThemeData(
   appBarTheme: const AppBarTheme(
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: Colors.transparent,
       systemNavigationBarDividerColor: Colors.transparent,
+      systemNavigationBarIconBrightness: Brightness.dark,
     ),
+  ),
+  iconTheme: const IconThemeData(
+    color: ColorsUI.textTertiary,
   ),
 );

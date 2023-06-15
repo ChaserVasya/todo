@@ -4,13 +4,17 @@ part 'todo.freezed.dart';
 
 @freezed
 class Todo with _$Todo {
+  const Todo._();
+
   const factory Todo({
     int? id,
     required String todo,
-    DateTime? dateTime,
+    DateTime? deadline,
     @Default(Priority.none) Priority priority,
     @Default(false) bool completed,
   }) = _Todo;
+
+  bool get alreadyCreated => id != null;
 }
 
 enum Priority {
