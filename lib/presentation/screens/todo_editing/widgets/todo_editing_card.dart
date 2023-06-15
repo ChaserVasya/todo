@@ -18,7 +18,16 @@ class _TodoEditingCardState extends State<TodoEditingCard> {
           editing: (state) => state.todo,
           completed: (state) => state.todo.todo,
         );
-    controller.text = todo;
+    final oldValue = controller.value;
+    final isTextPrinting = todo.length >= oldValue.text.length;
+    controller.value = oldValue.copyWith(
+      text: todo,
+      selection: TextSelection.collapsed(
+        offset: isTextPrinting
+            ? oldValue.selection.baseOffset
+            : oldValue.selection.baseOffset - 1,
+      ),
+    );
     super.didChangeDependencies();
   }
 
