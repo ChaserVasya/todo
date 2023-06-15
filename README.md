@@ -5,6 +5,7 @@
 - есть иконка
 - есть логгирование
 - ссылка на apk: https://github.com/ChaserVasya/todo/releases/tag/1
+- cсылка на реквест для проверки: https://github.com/ChaserVasya/todo/pull/1
 
 ## Реализованная логика
 - удаление Todo
