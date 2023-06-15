@@ -8,6 +8,7 @@ import 'package:todo/presentation/screens/todo_editing/widgets/deadline_editing_
 import 'package:todo/presentation/screens/todo_editing/widgets/delete_todo_tile.dart';
 import 'package:todo/presentation/screens/todo_editing/widgets/priority_editing_tile.dart';
 import 'package:todo/presentation/screens/todo_editing/widgets/todo_editing_card.dart';
+import 'package:todo/uikit/theme.dart';
 
 void createTodo(BuildContext context) async {
   final todo = await showTodoEditingDialog(context);
@@ -54,14 +55,24 @@ class NewTaskDialogBody extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
+          shadowColor: Colors.transparent,
           leading: IconButton(
-            icon: const Icon(Icons.close),
+            icon: const Icon(
+              Icons.close,
+              color: ColorsUI.textPrimary,
+            ),
             onPressed: Navigator.of(context).pop,
           ),
           actions: [
             TextButton(
               onPressed: context.read<TodoEditingCubit>().completeEditing,
-              child: const Text('Сохранить'),
+              child: const Text(
+                'СОХРАНИТЬ',
+                style: TextStyle(
+                  color: ColorsUI.blue,
+                  fontSize: 14,
+                ),
+              ),
             ),
           ],
         ),

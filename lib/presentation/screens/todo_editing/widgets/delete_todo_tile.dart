@@ -9,28 +9,37 @@ class DeleteTodoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<TodoEditingCubit, TodoEditingState, int?>(
-      selector: _getIdFromState,
-      builder: (context, id) {
-        final alreadyCreated = id != null;
-        return IconButton(
-          color: ColorsUI.red,
-          icon: Row(
-            children: const [
-              Icon(Icons.delete),
-              Text('Удалить'),
-            ],
-          ),
-          onPressed: alreadyCreated
-              ? () {
-                  context.read<TodosBloc>().add(
-                        TodosEvent.delete(id),
-                      );
-                  Navigator.of(context).pop();
-                }
-              : null,
-        );
-      },
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: BlocSelector<TodoEditingCubit, TodoEditingState, int?>(
+        selector: _getIdFromState,
+        builder: (context, id) {
+          final alreadyCreated = id != null;
+          return IconButton(
+            color: ColorsUI.red,
+            icon: Row(
+              children: [
+                const Icon(Icons.delete),
+                Text(
+                  'Удалить',
+                  style: TextStyle(
+                    color:
+                        alreadyCreated ? ColorsUI.red : ColorsUI.textTertiary,
+                  ),
+                ),
+              ],
+            ),
+            onPressed: alreadyCreated
+                ? () {
+                    context.read<TodosBloc>().add(
+                          TodosEvent.delete(id),
+                        );
+                    Navigator.of(context).pop();
+                  }
+                : null,
+          );
+        },
+      ),
     );
   }
 

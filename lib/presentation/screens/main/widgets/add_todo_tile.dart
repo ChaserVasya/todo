@@ -9,16 +9,19 @@ class AddTodoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: IconButton(
-        onPressed: () => createTodo(context),
-        icon: const Icon(
-          Icons.add,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: ListTile(
+        leading: IconButton(
+          onPressed: () => createTodo(context),
+          icon: const Icon(
+            Icons.add,
+          ),
         ),
-      ),
-      title: const Text(
-        'Новое',
-        style: TextStyle(color: ColorsUI.textTertiary),
+        title: const Text(
+          'Новое',
+          style: TextStyle(color: ColorsUI.textTertiary),
+        ),
       ),
     );
   }

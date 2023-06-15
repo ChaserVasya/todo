@@ -36,12 +36,11 @@ class _TodoEditingCardState extends State<TodoEditingCard> {
         padding: const EdgeInsets.all(16),
         child: TextField(
           decoration: const InputDecoration(
+            border: InputBorder.none,
             hintText: 'Что надо сделать...',
           ),
           controller: controller,
-          onSubmitted: (todo) {
-            context.read<TodoEditingCubit>().editTodo(todo);
-          },
+          onChanged: context.read<TodoEditingCubit>().editTodo,
         ),
       ),
     );

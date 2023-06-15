@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/presentation/blocs/todo_editing_cubit/todo_editing_cubit.dart';
 import 'package:todo/uikit/date_time_text.dart';
+import 'package:todo/uikit/helpers.dart';
+import 'package:todo/uikit/theme.dart';
 
 class DeadlineEditingTile extends StatelessWidget {
   const DeadlineEditingTile({super.key});
@@ -23,9 +25,12 @@ class DeadlineEditingTile extends StatelessWidget {
           },
           subtitle: deadline == null
               ? null
-              : TextButton(
-                  onPressed: () => _showDeadlinePicker(context, deadline),
-                  child: DateTimeText(deadline),
+              : GestureDetector(
+                  onTap: () => _showDeadlinePicker(context, deadline),
+                  child: DateTimeText(
+                    deadline,
+                    style: TextStyle(color: ColorsUI.blue),
+                  ),
                 ),
         );
       },

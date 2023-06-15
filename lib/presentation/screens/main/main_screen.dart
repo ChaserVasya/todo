@@ -1,7 +1,6 @@
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo/application/di/di.dart';
 import 'package:todo/domain/models/todo.dart';
 import 'package:todo/presentation/blocs/todos_bloc/todos_bloc.dart';
 import 'package:todo/presentation/screens/main/widgets/add_todo_tile.dart';
@@ -21,32 +20,29 @@ class MainScreen extends StatelessWidget {
         child: const Icon(Icons.add),
       ),
       resizeToAvoidBottomInset: true,
-      body: BlocProvider(
-        create: (_) => getIt.get<TodosBloc>(),
-        child: BlocBuilder<TodosBloc, TodosState>(
-          builder: (context, state) => state.when(
-            initial: () => const Center(
-              child: CircularProgressIndicator(),
-            ),
-            main: (todos, completedAreFiltered) => CustomScrollView(
-              slivers: [
-                _createMainAppBar(context, todos, completedAreFiltered),
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    Card(
-                      margin: const EdgeInsets.all(8),
-                      child: Column(
-                        children: [
-                          for (final todo in todos)
-                            TodoTile(todo, key: ObjectKey(todo.id)),
-                          const AddTodoTile(),
-                        ],
-                      ),
-                    )
-                  ]),
-                ),
-              ],
-            ),
+      body: BlocBuilder<TodosBloc, TodosState>(
+        builder: (context, state) => state.when(
+          initial: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          main: (todos, completedAreFiltered) => CustomScrollView(
+            slivers: [
+              _createMainAppBar(context, todos, completedAreFiltered),
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  Card(
+                    margin: const EdgeInsets.all(8),
+                    child: Column(
+                      children: [
+                        for (final todo in todos)
+                          TodoTile(todo, key: ObjectKey(todo.id)),
+                        const AddTodoTile(),
+                      ],
+                    ),
+                  )
+                ]),
+              ),
+            ],
           ),
         ),
       ),
@@ -58,43 +54,76 @@ class MainScreen extends StatelessWidget {
     List<Todo> todos,
     bool completedAreFiltered,
   ) {
+    const maxHeight = 160.0;
     return SliverAppBar(
       pinned: true,
-      expandedHeight: 160.0,
+      expandedHeight: maxHeight,
+      collapsedHeight: 65,
       flexibleSpace: FlexibleSpaceBar(
-        title: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Мои дела',
-              style: tth(context).labelLarge,
-            ),
-            Text(
-              'Выполнено - ${todos.map((e) => e.completed).count((e) => e)}',
-              style: tth(context).bodyMedium!.copyWith(
-                    color: ColorsUI.textTertiary,
+        title: LayoutBuilder(builder: (context, constrains) {
+          final notExpanded = maxHeight - 10 < constrains.maxHeight;
+          return Row(
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Spacer(),
+                  Text(
+                    'Мои дела',
+                    style: tth(context).labelLarge,
                   ),
-            )
-          ],
-        ),
+                  if (!notExpanded) const SizedBox(height: 10),
+                  if (notExpanded)
+                    Text(
+                      'Выполнено - ${todos.map((e) => e.completed).count((e) => e)}',
+                      style: tth(context).bodyMedium!.copyWith(
+                            color: ColorsUI.textTertiary,
+                          ),
+                    ),
+                ],
+              ),
+              const Spacer(),
+              Column(
+                children: [
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () {
+                      context.read<TodosBloc>().add(
+                            TodosEvent.filter(
+                              shouldFilter: !completedAreFiltered,
+                            ),
+                          );
+                    },
+                    color: ColorsUI.blue,
+                    icon: Icon(
+                      completedAreFiltered
+                          ? Icons.visibility //
+                          : Icons.visibility_off,
+                    ),
+                  ),
+                ],
+              )
+            ],
+          );
+        }),
       ),
-      actions: [
-        IconButton(
-          onPressed: () {
-            context.read<TodosBloc>().add(
-                  TodosEvent.filter(
-                    shouldFilter: !completedAreFiltered,
-                  ),
-                );
-          },
-          icon: Icon(
-            completedAreFiltered
-                ? Icons.visibility //
-                : Icons.visibility_off,
-          ),
-        )
-      ],
+      // actions: [
+      //   IconButton(
+      //     onPressed: () {
+      //       context.read<TodosBloc>().add(
+      //             TodosEvent.filter(
+      //               shouldFilter: !completedAreFiltered,
+      //             ),
+      //           );
+      //     },
+      //     icon: Icon(
+      //       completedAreFiltered
+      //           ? Icons.visibility //
+      //           : Icons.visibility_off,
+      //     ),
+      //   )
+      // ],
     );
   }
 }

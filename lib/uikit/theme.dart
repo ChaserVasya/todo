@@ -9,15 +9,16 @@ abstract class ColorsUI {
   static const grayLight = Color(0xFFD1D1D6);
   static const white = Colors.white;
   static const black = Colors.black;
-  static const textPrimary = Color(0x00000000);
+  static const textPrimary = Color(0xFF000000);
   static const textSecondary = Color(0x99000000);
   static const textTertiary = Color(0x4D000000);
 }
 
 const lightColorScheme = ColorScheme(
   brightness: Brightness.light,
-  primary: Color(0xFFF7F6F2),
-  onPrimary: Colors.black,
+  // primary: Color(0xFFF7F6F2),
+  primary: ColorsUI.blue,
+  onPrimary: ColorsUI.white,
   secondary: ColorsUI.blue,
   onSecondary: ColorsUI.white,
   surface: ColorsUI.white,
@@ -34,8 +35,8 @@ const textTheme = TextTheme(
     fontWeight: FontWeight.w500,
   ),
   titleMedium: TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.w500,
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
   ),
   labelLarge: TextStyle(
     fontSize: 24,
@@ -43,11 +44,11 @@ const textTheme = TextTheme(
   ),
   bodyMedium: TextStyle(
     fontSize: 16,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w400,
   ),
   labelMedium: TextStyle(
     fontSize: 14,
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w400,
   ),
 );
 
@@ -58,8 +59,9 @@ final theme = ThemeData(
     color: Color(0x33000000),
   ),
   scaffoldBackgroundColor: const Color(0xFFF7F6F2),
-  appBarTheme: const AppBarTheme(
-    systemOverlayStyle: SystemUiOverlayStyle(
+  appBarTheme: AppBarTheme(
+    backgroundColor: lightColorScheme.background,
+    systemOverlayStyle: const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: Colors.transparent,

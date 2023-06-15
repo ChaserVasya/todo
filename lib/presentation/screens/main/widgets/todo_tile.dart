@@ -81,15 +81,15 @@ class _TodoListSliding extends StatelessWidget {
           color: ColorsUI.white,
         ),
       ),
-      onDismissed: (dir) async {
+      confirmDismiss: (dir) async {
         final bloc = context.read<TodosBloc>();
         if (dir == DismissDirection.startToEnd) {
           bloc.add(TodosEvent.update(todo.copyWith(completed: true)));
         } else if (dir == DismissDirection.endToStart) {
           bloc.add(TodosEvent.delete(todo.id!));
+          return true;
         }
       },
-      confirmDismiss: (dir) async => dir == DismissDirection.endToStart,
       child: child,
     );
   }
@@ -118,7 +118,7 @@ class _TodoCompletedCheckBox extends StatelessWidget {
                   color: ColorsUI.red.withOpacity(0.5),
                   border: Border.all(
                     color: Colors.red,
-                    width: 3,
+                    width: 2,
                   ),
                   borderRadius: BorderRadius.circular(2),
                 ),

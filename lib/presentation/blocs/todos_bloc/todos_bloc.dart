@@ -48,11 +48,16 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
   Future<void> _refresh(Emitter<TodosState> emit) async {
     var todos = await _repo.getAll();
 
-    if (state is _Main && (state as _Main).completedAreFiltered) {
+    final completedAreFiltered =
+        state is _Main && (state as _Main).completedAreFiltered;
+    if (completedAreFiltered) {
       todos = todos.filter((e) => !e.completed).toList();
     }
 
-    emit(TodosState.main(todos: todos));
+    emit(TodosState.main(
+      todos: todos,
+      completedAreFiltered: completedAreFiltered,
+    ));
   }
 
   Future<void> _filter(_Filter event, Emitter<TodosState> emit) async {
