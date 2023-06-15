@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:injectable/injectable.dart';
+import 'package:todo/application/global.dart';
 import 'package:todo/domain/models/todo.dart';
 import 'package:todo/domain/repositories/todo_repository.dart';
 
@@ -20,16 +21,22 @@ class TodoRepositoryMemory implements TodoRepository {
 
     final newId = genId();
     todos[newId] = todo.copyWith(id: newId);
+
+    logger.d('$todo');
   }
 
   @override
   Future<void> update(Todo todo) async {
     if (todo.id == null) return;
     todos[todo.id!] = todo;
+
+    logger.d('$todo');
   }
 
   @override
   Future<Todo?> delete(int id) async {
+    logger.d('$id');
+
     return todos.remove(id);
   }
 
