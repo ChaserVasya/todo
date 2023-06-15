@@ -53,7 +53,7 @@ class TodoTile extends StatelessWidget {
   }
 }
 
-class _TodoListSliding extends StatelessWidget {
+class _TodoListSliding extends StatefulWidget {
   const _TodoListSliding({
     required LocalKey key,
     required this.todo,
@@ -64,34 +64,69 @@ class _TodoListSliding extends StatelessWidget {
   final Todo todo;
 
   @override
+  State<_TodoListSliding> createState() => _TodoListSlidingState();
+}
+
+class _TodoListSlidingState extends State<_TodoListSliding> {
+  double progress = 0;
+
+  @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: key!,
-      background: Container(
-        color: ColorsUI.green,
-        child: const Icon(
-          Icons.check,
-          color: ColorsUI.white,
+    return LayoutBuilder(builder: (context, constrains) {
+      final width = constrains.maxWidth;
+      final height = constrains.maxHeight;
+      return Dismissible(
+        key: widget.key!,
+        onUpdate: (details) {
+          setState(() {});
+          progress = details.progress;
+        },
+        background: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: ColorsUI.green,
+            ),
+            Positioned(
+              left: width * progress - 50,
+              top: 16,
+              child: const Icon(
+                Icons.check,
+                color: ColorsUI.white,
+              ),
+            )
+          ],
         ),
-      ),
-      secondaryBackground: Container(
-        color: ColorsUI.red,
-        child: const Icon(
-          Icons.delete,
-          color: ColorsUI.white,
+        secondaryBackground: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: ColorsUI.red,
+            ),
+            Positioned(
+              right:  (width * progress) - 50,
+              top: 16,
+              child: const Icon(
+                Icons.delete,
+                color: ColorsUI.white,
+              ),
+            ),
+          ],
         ),
-      ),
-      confirmDismiss: (dir) async {
-        final bloc = context.read<TodosBloc>();
-        if (dir == DismissDirection.startToEnd) {
-          bloc.add(TodosEvent.update(todo.copyWith(completed: true)));
-        } else if (dir == DismissDirection.endToStart) {
-          bloc.add(TodosEvent.delete(todo.id!));
-          return true;
-        }
-      },
-      child: child,
-    );
+        confirmDismiss: (dir) async {
+          final bloc = context.read<TodosBloc>();
+          if (dir == DismissDirection.startToEnd) {
+            bloc.add(TodosEvent.update(widget.todo.copyWith(completed: true)));
+          } else if (dir == DismissDirection.endToStart) {
+            bloc.add(TodosEvent.delete(widget.todo.id!));
+            return true;
+          }
+        },
+        child: widget.child,
+      );
+    });
   }
 }
 
