@@ -1,0 +1,13 @@
+{
+  "@@locale": "en",
+  "main_title": "My todos",
+  "main_subtitle": "Completed - {count}",
+  "todo_new": "New",
+  "priority": "Priority",
+  "priority_none": "None",
+  "priority_low": "Low",
+  "priority_high": "High",
+  "deadline_do_until": "Do until",
+  "todo_editing_do_something": "Do something...",
+  "todo_editing_delete" : "Delete"
+}

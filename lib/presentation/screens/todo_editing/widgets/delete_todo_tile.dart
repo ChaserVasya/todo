@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/presentation/blocs/todo_editing_cubit/todo_editing_cubit.dart';
 import 'package:todo/presentation/blocs/todos_bloc/todos_bloc.dart';
+import 'package:todo/uikit/helpers.dart';
 import 'package:todo/uikit/theme.dart';
 
 class DeleteTodoTile extends StatelessWidget {
@@ -21,10 +22,11 @@ class DeleteTodoTile extends StatelessWidget {
               children: [
                 const Icon(Icons.delete),
                 Text(
-                  'Удалить',
+                  ln(context).todo_editing_delete,
                   style: TextStyle(
-                    color:
-                        alreadyCreated ? ColorsUI.red : ColorsUI.textTertiary,
+                    color: alreadyCreated
+                        ? ColorsUI.red //
+                        : ColorsUI.textTertiary,
                   ),
                 ),
               ],

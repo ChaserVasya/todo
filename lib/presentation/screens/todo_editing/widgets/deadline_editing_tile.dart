@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/presentation/blocs/todo_editing_cubit/todo_editing_cubit.dart';
 import 'package:todo/uikit/date_time_text.dart';
-import 'package:todo/uikit/helpers.dart';
+import 'package:todo/uikit/helpers.dart' as helpers;
 import 'package:todo/uikit/theme.dart';
 
 class DeadlineEditingTile extends StatelessWidget {
@@ -10,11 +10,13 @@ class DeadlineEditingTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ln = helpers.ln(context);
+
     return BlocSelector<TodoEditingCubit, TodoEditingState, DateTime?>(
       selector: _getDateFromState,
       builder: (context, deadline) {
         return SwitchListTile(
-          title: const Text('Сделать до'),
+          title: Text(ln.deadline_do_until),
           value: deadline != null,
           onChanged: (hasDeadline) {
             if (hasDeadline) {
@@ -29,7 +31,7 @@ class DeadlineEditingTile extends StatelessWidget {
                   onTap: () => _showDeadlinePicker(context, deadline),
                   child: DateTimeText(
                     deadline,
-                    style: TextStyle(color: ColorsUI.blue),
+                    style: const TextStyle(color: ColorsUI.blue),
                   ),
                 ),
         );

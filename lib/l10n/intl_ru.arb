@@ -1,0 +1,13 @@
+{
+  "@@locale": "ru",
+  "main_title": "Мои дела",
+  "main_subtitle": "Выполнено - {count}",
+  "todo_new": "Новое",
+  "priority": "Важность",
+  "priority_none": "Нет",
+  "priority_low": "Низкий",
+  "priority_high": "Высокий",
+  "deadline_do_until": "Сделать до",
+  "todo_editing_do_something": "Сделать что-то...",
+  "todo_editing_delete" : "Удалить"
+}

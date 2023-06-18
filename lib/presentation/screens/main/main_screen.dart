@@ -2,6 +2,7 @@ import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/domain/models/todo.dart';
+import 'package:todo/generated/l10n.dart';
 import 'package:todo/presentation/blocs/todos_bloc/todos_bloc.dart';
 import 'package:todo/presentation/screens/main/widgets/add_todo_tile.dart';
 import 'package:todo/presentation/screens/main/widgets/todo_tile.dart';
@@ -54,7 +55,9 @@ class MainScreen extends StatelessWidget {
     List<Todo> todos,
     bool completedAreFiltered,
   ) {
+    final l10n = L10n.of(context);
     const maxHeight = 160.0;
+
     return SliverAppBar(
       pinned: true,
       expandedHeight: maxHeight,
@@ -70,13 +73,13 @@ class MainScreen extends StatelessWidget {
                 children: [
                   const Spacer(),
                   Text(
-                    'Мои дела',
+                    l10n.main_title,
                     style: tth(context).labelLarge,
                   ),
                   if (!notExpanded) const SizedBox(height: 10),
                   if (notExpanded)
                     Text(
-                      'Выполнено - ${todos.map((e) => e.completed).count((e) => e)}',
+                      l10n.main_subtitle(todos.count((e) => e.completed)),
                       style: tth(context).bodyMedium!.copyWith(
                             color: ColorsUI.textTertiary,
                           ),
@@ -108,22 +111,6 @@ class MainScreen extends StatelessWidget {
           );
         }),
       ),
-      // actions: [
-      //   IconButton(
-      //     onPressed: () {
-      //       context.read<TodosBloc>().add(
-      //             TodosEvent.filter(
-      //               shouldFilter: !completedAreFiltered,
-      //             ),
-      //           );
-      //     },
-      //     icon: Icon(
-      //       completedAreFiltered
-      //           ? Icons.visibility //
-      //           : Icons.visibility_off,
-      //     ),
-      //   )
-      // ],
     );
   }
 }

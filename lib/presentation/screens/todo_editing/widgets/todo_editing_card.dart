@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo/generated/l10n.dart';
 import 'package:todo/presentation/blocs/todo_editing_cubit/todo_editing_cubit.dart';
 
 class TodoEditingCard extends StatefulWidget {
@@ -44,9 +45,9 @@ class _TodoEditingCardState extends State<TodoEditingCard> {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: TextField(
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             border: InputBorder.none,
-            hintText: 'Что надо сделать...',
+            hintText: L10n.of(context).todo_editing_do_something,
           ),
           controller: controller,
           onChanged: context.read<TodoEditingCubit>().editTodo,

@@ -17,10 +17,12 @@ dependencies:
   logger: ^1.4.0
   freezed_annotation: ^2.2.0
   get_it: ^7.6.0
-  intl: ^0.18.1
+  intl: ^0.17.0
   bloc_concurrency: ^0.2.2
   dartx: ^1.1.0
   flutter_svg: ^2.0.5
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -36,3 +38,7 @@ flutter:
 
   assets:
     - assets/icons/
+flutter_intl:
+  enabled: true
+  class_name: L10n
+  main_locale: ru

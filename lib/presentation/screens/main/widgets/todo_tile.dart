@@ -74,7 +74,6 @@ class _TodoListSlidingState extends State<_TodoListSliding> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constrains) {
       final width = constrains.maxWidth;
-      final height = constrains.maxHeight;
       return Dismissible(
         key: widget.key!,
         onUpdate: (details) {
@@ -106,7 +105,7 @@ class _TodoListSlidingState extends State<_TodoListSliding> {
               color: ColorsUI.red,
             ),
             Positioned(
-              right:  (width * progress) - 50,
+              right: width * progress - 50,
               top: 16,
               child: const Icon(
                 Icons.delete,
@@ -123,6 +122,7 @@ class _TodoListSlidingState extends State<_TodoListSliding> {
             bloc.add(TodosEvent.delete(widget.todo.id!));
             return true;
           }
+          return null;
         },
         child: widget.child,
       );
@@ -131,7 +131,7 @@ class _TodoListSlidingState extends State<_TodoListSliding> {
 }
 
 class _TodoCompletedCheckBox extends StatelessWidget {
-  const _TodoCompletedCheckBox(this.todo, {super.key});
+  const _TodoCompletedCheckBox(this.todo);
 
   final Todo todo;
 
