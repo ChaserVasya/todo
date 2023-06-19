@@ -23,6 +23,12 @@ dependencies:
   flutter_svg: ^2.0.5
   flutter_localizations:
     sdk: flutter
+  envied: ^0.3.0+3
+  retrofit: ^4.0.1
+  retrofit_generator: ^7.0.1
+  json_serializable: ^6.6.2
+  dio: ^5.2.1+1
+  shared_preferences: ^2.1.2
 
 dev_dependencies:
   flutter_test:
@@ -30,8 +36,8 @@ dev_dependencies:
   freezed: ^2.3.5
   flutter_lints: ^2.0.0
   build_runner: ^2.3.3
-  json_serializable: ^6.6.2
   injectable_generator: ^2.1.6
+  envied_generator: ^0.3.0+3
 
 flutter:
   uses-material-design: true
