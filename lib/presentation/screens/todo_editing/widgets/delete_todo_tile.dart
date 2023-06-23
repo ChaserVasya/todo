@@ -12,7 +12,7 @@ class DeleteTodoTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: BlocSelector<TodoEditingCubit, TodoEditingState, int?>(
+      child: BlocSelector<TodoEditingCubit, TodoEditingState, String?>(
         selector: _getIdFromState,
         builder: (context, id) {
           final alreadyCreated = id != null;
@@ -45,7 +45,7 @@ class DeleteTodoTile extends StatelessWidget {
     );
   }
 
-  int? _getIdFromState(TodoEditingState state) {
+  String? _getIdFromState(TodoEditingState state) {
     return state.map(
       editing: (state) => state.id,
       completed: (state) => state.todo.id,

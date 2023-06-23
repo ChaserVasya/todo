@@ -16,56 +16,56 @@ part 'todos_state.dart';
 class TodosBloc extends Bloc<TodosEvent, TodosState> {
   final TodoRepository _repo;
 
-  TodosBloc(this._repo) : super(const TodosState.initial()) {
+  TodosBloc(this._repo) : super(const TodosState.loading()) {
     on<TodosEvent>(
       (event, emit) => event.map<Future<void>>(
         add: (event) => _add(event, emit),
         delete: (event) => _delete(event, emit),
         update: (event) => _update(event, emit),
         filter: (event) => _filter(event, emit),
-        refresh: (_) => _refresh(emit),
+        init: (_) => _init(emit),
       ),
       transformer: sequential(),
     );
-    add(const TodosEvent.refresh());
+    add(const TodosEvent.init());
   }
 
   Future<void> _add(_Add event, Emitter<TodosState> emit) async {
+    final main = _ensureMain();
+    emit(const TodosState.loading());
     await _repo.add(event.todo);
-    await _refresh(emit);
+    await _refresh(emit, main);
   }
 
   Future<void> _delete(_Delete event, Emitter<TodosState> emit) async {
+    final main = _ensureMain();
+    emit(const TodosState.loading());
     await _repo.delete(event.id);
-    await _refresh(emit);
+    await _refresh(emit, main);
   }
 
   Future<void> _update(_Update event, Emitter<TodosState> emit) async {
+    final main = _ensureMain();
+    emit(const TodosState.loading());
     await _repo.update(event.todo);
-    await _refresh(emit);
+    await _refresh(emit, main);
   }
 
-  Future<void> _refresh(Emitter<TodosState> emit) async {
+  Future<void> _refresh(Emitter<TodosState> emit, _Main oldState) async {
     var todos = await _repo.getAll();
+    emit(oldState.copyWith(todos: todos));
+  }
 
-    final completedAreFiltered =
-        state is _Main && (state as _Main).completedAreFiltered;
-    if (completedAreFiltered) {
-      todos = todos.filter((e) => !e.completed).toList();
-    }
-
+  Future<void> _init(Emitter<TodosState> emit) async {
+    var todos = await _repo.getAll();
     emit(TodosState.main(
       todos: todos,
-      completedAreFiltered: completedAreFiltered,
     ));
   }
 
   Future<void> _filter(_Filter event, Emitter<TodosState> emit) async {
     final state = _ensureMain();
-    emit(state.copyWith(
-      completedAreFiltered: event.shouldFilter,
-    ));
-    add(const TodosEvent.refresh());
+    emit(state.copyWith(shouldFilter: event.shouldFilter));
   }
 
   _Main _ensureMain() => state.mapOrNull(main: (state) => state)!;

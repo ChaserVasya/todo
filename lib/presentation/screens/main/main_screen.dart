@@ -16,35 +16,46 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.large(
-        onPressed: () => createTodo(context),
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: () {
+        final state = context.watch<TodosBloc>().state;
+        return state.map<Widget?>(
+          loading: (_) => null,
+          main: (_) => FloatingActionButton.large(
+            onPressed: () => createTodo(context),
+            child: const Icon(Icons.add),
+          ),
+        );
+      }(),
       resizeToAvoidBottomInset: true,
       body: BlocBuilder<TodosBloc, TodosState>(
         builder: (context, state) => state.when(
-          initial: () => const Center(
+          loading: () => const Center(
             child: CircularProgressIndicator(),
           ),
-          main: (todos, completedAreFiltered) => CustomScrollView(
-            slivers: [
-              _createMainAppBar(context, todos, completedAreFiltered),
-              SliverList(
-                delegate: SliverChildListDelegate([
-                  Card(
-                    margin: const EdgeInsets.all(8),
-                    child: Column(
-                      children: [
-                        for (final todo in todos)
-                          TodoTile(todo, key: ObjectKey(todo.id)),
-                        const AddTodoTile(),
-                      ],
-                    ),
-                  )
-                ]),
-              ),
-            ],
-          ),
+          main: (todos, shouldFilter) {
+            if (shouldFilter) {
+              todos = todos.filter((e) => !e.completed).toList();
+            }
+            return CustomScrollView(
+              slivers: [
+                _createMainAppBar(context, todos, shouldFilter),
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    Card(
+                      margin: const EdgeInsets.all(8),
+                      child: Column(
+                        children: [
+                          for (final todo in todos)
+                            TodoTile(todo, key: ObjectKey(todo.id)),
+                          const AddTodoTile(),
+                        ],
+                      ),
+                    )
+                  ]),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

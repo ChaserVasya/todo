@@ -44,13 +44,17 @@ class _TodoEditingCardState extends State<TodoEditingCard> {
       margin: const EdgeInsets.all(16),
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: TextField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: L10n.of(context).todo_editing_do_something,
+        child: IntrinsicHeight(
+          child: TextField(
+            expands: true,
+            maxLines: null,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: L10n.of(context).todo_editing_do_something,
+            ),
+            controller: controller,
+            onChanged: context.read<TodoEditingCubit>().editTodo,
           ),
-          controller: controller,
-          onChanged: context.read<TodoEditingCubit>().editTodo,
         ),
       ),
     );

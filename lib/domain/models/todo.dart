@@ -2,12 +2,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'todo.freezed.dart';
 
+typedef Id = String;
+
 @freezed
 class Todo with _$Todo {
   const Todo._();
 
   const factory Todo({
-    int? id,
+    Id? id,
     required String todo,
     DateTime? deadline,
     @Default(Priority.none) Priority priority,

@@ -4,11 +4,12 @@ import 'package:injectable/injectable.dart';
 import 'package:todo/application/global.dart';
 import 'package:todo/domain/models/todo.dart';
 import 'package:todo/domain/repositories/todo_repository.dart';
+import 'package:uuid/uuid.dart';
 
-typedef Id = int;
-
-@Singleton(as: TodoRepository)
+// @Singleton(as: TodoRepository)
 class TodoRepositoryMemory implements TodoRepository {
+  static const uuid = Uuid();
+
   final Map<Id, Todo> todos = SplayTreeMap.fromIterables(
     _stub.map((e) => e.id!),
     _stub,
@@ -34,8 +35,8 @@ class TodoRepositoryMemory implements TodoRepository {
   }
 
   @override
-  Future<Todo?> delete(int id) async {
-    logger.d('$id');
+  Future<Todo?> delete(Id id) async {
+    logger.d(id);
 
     return todos.remove(id);
   }
@@ -45,7 +46,7 @@ class TodoRepositoryMemory implements TodoRepository {
     return todos.values.toList();
   }
 
-  int genId() => todos.keys.last + 1;
+  Id genId() => uuid.v1();
 }
 
 final _stub = () {
@@ -89,8 +90,9 @@ final _stub = () {
       deadline: DateTime.now(),
     ),
   ];
+  const uuid = Uuid();
   return [
     for (var i = 0; i < stub.length; i++) //
-      stub[i].copyWith(id: i),
+      stub[i].copyWith(id: uuid.v1()),
   ];
 }();

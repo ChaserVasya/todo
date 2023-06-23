@@ -2,9 +2,9 @@ part of 'todos_bloc.dart';
 
 @freezed
 class TodosState with _$TodosState {
-  const factory TodosState.initial() = _Initial;
+  const factory TodosState.loading() = _Loading;
   const factory TodosState.main({
     required List<Todo> todos,
-    @Default(false) bool completedAreFiltered,
+    @Default(false) bool shouldFilter,
   }) = _Main;
 }
