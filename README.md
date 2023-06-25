@@ -4,8 +4,22 @@
 ## Реализованные фичи
 - есть иконка
 - есть логгирование
-- ссылка на apk: https://github.com/ChaserVasya/todo/releases/tag/1
+- ссылка на apk: https://github.com/ChaserVasya/todo/releases/tag/2
 - cсылка на реквест для проверки: https://github.com/ChaserVasya/todo/pull/1
+- есть локализация с помощью intl + Flutter intl плагин для AS
+- применяется flutter-lints
+- сохранение данных на диск используется в виде манипуляции ревизии в шаред
+
+## Слои
+Слои сделаны по принципу layer-first.
+data-слой содержит 
+- локальные бд в `storages`
+- удалённые бд в `services`
+- вспомогательные утилиты в `services`
+- другие вспомогательные папки
+domain-слой содержит абстракции
+application-слой содержит "точки связи", вроде, MaterialApp, di, globals.
+presentation-слой содержит содержит блоки и вёрстку.
 
 ## Реализованная логика
 - удаление Todo
