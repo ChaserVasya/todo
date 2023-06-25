@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:todo/domain/models/todo.dart';
 
@@ -14,9 +16,9 @@ class TodoDto with _$TodoDto {
     int? deadline,
     required bool done,
     String? color,
-    @JsonKey(name: "created_at") int? createdAt,
-    @JsonKey(name: "changed_at") int? changedAt,
-    @JsonKey(name: "last_updated_by") String? lastUpdatedBy,
+    @JsonKey(name: 'created_at') int? createdAt,
+    @JsonKey(name: 'changed_at') int? changedAt,
+    @JsonKey(name: 'last_updated_by') String? lastUpdatedBy,
   }) = _TodoDto;
 
   factory TodoDto.fromJson(Map<String, dynamic> json) =>

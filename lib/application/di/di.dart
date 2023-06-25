@@ -12,8 +12,6 @@ final getIt = GetIt.instance;
 @InjectableInit()
 Future<void> configureDependencies() async {
   await getIt.init();
-  // Intl.systemLocale = await findSystemLocale();
-  // await initializeDateFormatting();
 }
 
 @module

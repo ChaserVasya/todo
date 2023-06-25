@@ -1,6 +1,5 @@
 import 'dart:collection';
 
-import 'package:injectable/injectable.dart';
 import 'package:todo/application/global.dart';
 import 'package:todo/domain/models/todo.dart';
 import 'package:todo/domain/repositories/todo_repository.dart';
