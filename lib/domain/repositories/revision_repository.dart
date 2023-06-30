@@ -1,4 +1,4 @@
 abstract class RevisionRepository {
-  int get();
+  int? get();
   void set(int rev);
 }

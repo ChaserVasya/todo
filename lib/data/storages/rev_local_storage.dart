@@ -11,7 +11,13 @@ class RevLocalStorage implements RevisionRepository {
   RevLocalStorage(this.prefs);
 
   @override
-  int get() => prefs.getInt(revPrefsKey)!;
+  int? get() {
+    try {
+      return prefs.getInt(revPrefsKey);
+    } on Exception catch (e) {
+      return null;
+    }
+  }
 
   @override
   void set(int rev) => prefs.setInt(revPrefsKey, rev);
