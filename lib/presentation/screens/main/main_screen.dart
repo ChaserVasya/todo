@@ -88,7 +88,7 @@ class MainScreen extends StatelessWidget {
                     style: tth(context).labelLarge,
                   ),
                   if (!notExpanded) const SizedBox(height: 10),
-                  if (notExpanded)
+                  if (notExpanded && !completedAreFiltered)
                     Text(
                       l10n.main_subtitle(todos.count((e) => e.completed)),
                       style: tth(context).bodyMedium!.copyWith(
