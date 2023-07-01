@@ -18,6 +18,7 @@ class TodoRepositoryRemote implements TodoRepository {
 
   @override
   Future<void> add(Todo todo) async {
+    await getAll();
     final id = uuid.v1();
     final dto = mapper.toDto(todo.copyWith(id: id));
     await service.createTodo(
@@ -31,6 +32,7 @@ class TodoRepositoryRemote implements TodoRepository {
 
   @override
   Future<Todo?> delete(Id id) async {
+    await getAll();
     final dto = await service.deleteTodo(id);
     return mapper.fromDto(dto);
   }
@@ -43,6 +45,7 @@ class TodoRepositoryRemote implements TodoRepository {
 
   @override
   Future<void> update(Todo todo) async {
+    await getAll();
     await service.updateTodo(
       todo.id!,
       mapper.toDto(todo).copyWith(

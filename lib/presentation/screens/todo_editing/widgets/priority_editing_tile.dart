@@ -4,8 +4,8 @@ import 'package:todo/domain/models/todo.dart';
 import 'package:todo/generated/l10n.dart';
 import 'package:todo/presentation/blocs/todo_editing_cubit/todo_editing_cubit.dart';
 import 'package:todo/presentation/widgets/priority_icon.dart';
-import 'package:todo/uikit/helpers.dart' as helpers;
-import 'package:todo/uikit/theme.dart';
+import 'package:todo/presentation/uikit/helpers.dart' as helpers;
+import 'package:todo/presentation/uikit/theme.dart';
 
 class PriorityEditingTile extends StatelessWidget {
   const PriorityEditingTile({super.key});

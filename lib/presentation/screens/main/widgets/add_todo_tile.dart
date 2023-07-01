@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo/generated/l10n.dart';
 import 'package:todo/presentation/screens/todo_editing/todo_editing_dialog.dart';
-import 'package:todo/uikit/theme.dart';
+import 'package:todo/presentation/uikit/theme.dart';
 
 class AddTodoTile extends StatelessWidget {
   const AddTodoTile({super.key});

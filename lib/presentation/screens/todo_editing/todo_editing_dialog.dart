@@ -10,7 +10,7 @@ import 'package:todo/presentation/screens/todo_editing/widgets/deadline_editing_
 import 'package:todo/presentation/screens/todo_editing/widgets/delete_todo_tile.dart';
 import 'package:todo/presentation/screens/todo_editing/widgets/priority_editing_tile.dart';
 import 'package:todo/presentation/screens/todo_editing/widgets/todo_editing_card.dart';
-import 'package:todo/uikit/theme.dart';
+import 'package:todo/presentation/uikit/theme.dart';
 
 void createTodo(BuildContext context) async {
   final todo = await showTodoEditingDialog(context);

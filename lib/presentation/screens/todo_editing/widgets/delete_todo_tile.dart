@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/presentation/blocs/todo_editing_cubit/todo_editing_cubit.dart';
 import 'package:todo/presentation/blocs/todos_bloc/todos_bloc.dart';
-import 'package:todo/uikit/helpers.dart';
-import 'package:todo/uikit/theme.dart';
+import 'package:todo/presentation/uikit/helpers.dart';
+import 'package:todo/presentation/uikit/theme.dart';
 
 class DeleteTodoTile extends StatelessWidget {
   const DeleteTodoTile({super.key});

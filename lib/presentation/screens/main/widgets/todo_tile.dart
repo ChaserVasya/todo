@@ -4,9 +4,9 @@ import 'package:todo/domain/models/todo.dart';
 import 'package:todo/presentation/blocs/todos_bloc/todos_bloc.dart';
 import 'package:todo/presentation/screens/todo_editing/todo_editing_dialog.dart';
 import 'package:todo/presentation/widgets/priority_icon.dart';
-import 'package:todo/uikit/date_time_text.dart';
-import 'package:todo/uikit/helpers.dart';
-import 'package:todo/uikit/theme.dart';
+import 'package:todo/presentation/uikit/date_time_text.dart';
+import 'package:todo/presentation/uikit/helpers.dart';
+import 'package:todo/presentation/uikit/theme.dart';
 import 'package:todo/utils/extensions.dart';
 
 class TodoTile extends StatelessWidget {

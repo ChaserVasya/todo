@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:todo/uikit/theme.dart';
+import 'package:todo/presentation/uikit/theme.dart';
 
 void handleExceptions() {
   Bloc.observer = _BlocErrorHandler();

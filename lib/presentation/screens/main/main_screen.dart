@@ -7,8 +7,8 @@ import 'package:todo/presentation/blocs/todos_bloc/todos_bloc.dart';
 import 'package:todo/presentation/screens/main/widgets/add_todo_tile.dart';
 import 'package:todo/presentation/screens/main/widgets/todo_tile.dart';
 import 'package:todo/presentation/screens/todo_editing/todo_editing_dialog.dart';
-import 'package:todo/uikit/helpers.dart';
-import 'package:todo/uikit/theme.dart';
+import 'package:todo/presentation/uikit/helpers.dart';
+import 'package:todo/presentation/uikit/theme.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});

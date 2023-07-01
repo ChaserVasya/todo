@@ -5,7 +5,7 @@ import 'package:todo/application/exceptions/handle_exceptions.dart';
 import 'package:todo/application/routes.dart';
 import 'package:todo/generated/l10n.dart';
 import 'package:todo/presentation/blocs/todos_bloc/todos_bloc.dart';
-import 'package:todo/uikit/theme.dart';
+import 'package:todo/presentation/uikit/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class App extends StatelessWidget {
