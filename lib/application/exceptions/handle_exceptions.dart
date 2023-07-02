@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:todo/presentation/uikit/snackbars/error.dart';
+import 'package:todo/presentation/uikit/snack_bars/error.dart';
 
 void handleExceptions() {
   Bloc.observer = _BlocErrorHandler();
