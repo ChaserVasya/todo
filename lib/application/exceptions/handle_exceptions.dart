@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:todo/presentation/uikit/theme.dart';
+import 'package:todo/presentation/uikit/snackbars/error.dart';
 
 void handleExceptions() {
   Bloc.observer = _BlocErrorHandler();
@@ -15,12 +15,4 @@ class _BlocErrorHandler extends BlocObserver {
     _messenger?.showSnackBar(ErrorSnackBar(error));
     super.onError(bloc, error, stackTrace);
   }
-}
-
-class ErrorSnackBar extends SnackBar {
-  ErrorSnackBar(Object error, {super.key})
-      : super(
-          content: Text(error.toString()),
-          backgroundColor: ColorsUI.red,
-        );
 }
