@@ -34,6 +34,8 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     emit(const TodosState.loading());
     try {
       await _repo.add(event.todo);
+    } catch (e) {
+      onError(e, StackTrace.current);
     } finally {
       await _refresh(emit, main);
     }
@@ -42,8 +44,13 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
   Future<void> _delete(_Delete event, Emitter<TodosState> emit) async {
     final main = _ensureMain();
     emit(const TodosState.loading());
-    await _repo.delete(event.id);
-    await _refresh(emit, main);
+    try {
+      await _repo.delete(event.id);
+    } catch (e) {
+      onError(e, StackTrace.current);
+    } finally {
+      await _refresh(emit, main);
+    }
   }
 
   Future<void> _update(_Update event, Emitter<TodosState> emit) async {
@@ -51,6 +58,8 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     emit(const TodosState.loading());
     try {
       await _repo.update(event.todo);
+    } catch (e) {
+      onError(e, StackTrace.current);
     } finally {
       await _refresh(emit, main);
     }
