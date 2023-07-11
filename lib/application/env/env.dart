@@ -7,3 +7,7 @@ abstract class Env {
   @EnviedField(varName: 'TOKEN')
   static const String token = _Env.token;
 }
+
+// class _Env {
+//   static const String token = '';
+// }
