@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/domain/models/todo.dart';
 import 'package:todo/presentation/blocs/todos_bloc/todos_bloc.dart';
-import 'package:todo/presentation/screens/todo_editing/todo_editing_dialog.dart';
+import 'package:todo/presentation/router/config.dart';
+import 'package:todo/presentation/router/delegate.dart';
 import 'package:todo/presentation/widgets/priority_icon.dart';
 import 'package:todo/presentation/uikit/date_time_text.dart';
 import 'package:todo/presentation/uikit/helpers.dart';
@@ -22,7 +23,8 @@ class TodoTile extends StatelessWidget {
       child: ListTile(
         leading: _TodoCompletedCheckBox(todo),
         trailing: const Icon(Icons.info_outline),
-        onTap: () => editTodo(context, todo),
+        onTap: () =>
+            AppRouterDelegate.of(context).setNewRoutePath(AppConfig.edit(todo)),
         title: Row(
           children: <Widget>[
             if (todo.priority != Priority.none && !todo.completed)

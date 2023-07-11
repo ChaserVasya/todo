@@ -149,6 +149,16 @@ class L10n {
       args: [],
     );
   }
+
+  /// `Сохранить`
+  String get todo_editing_save {
+    return Intl.message(
+      'Сохранить',
+      name: 'todo_editing_save',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L10n> {

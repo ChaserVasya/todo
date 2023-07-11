@@ -9,5 +9,6 @@
   "priority_high": "High",
   "deadline_do_until": "Do until",
   "todo_editing_do_something": "Do something...",
-  "todo_editing_delete" : "Delete"
+  "todo_editing_delete" : "Delete",
+  "todo_editing_save": "Save"
 }

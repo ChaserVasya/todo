@@ -9,5 +9,6 @@
   "priority_high": "Высокий",
   "deadline_do_until": "Сделать до",
   "todo_editing_do_something": "Сделать что-то...",
-  "todo_editing_delete" : "Удалить"
+  "todo_editing_delete" : "Удалить",
+  "todo_editing_save": "Сохранить"
 }

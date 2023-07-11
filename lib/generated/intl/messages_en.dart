@@ -34,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "todo_editing_delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "todo_editing_do_something":
             MessageLookupByLibrary.simpleMessage("Do something..."),
+        "todo_editing_save": MessageLookupByLibrary.simpleMessage("Save"),
         "todo_new": MessageLookupByLibrary.simpleMessage("New")
       };
 }

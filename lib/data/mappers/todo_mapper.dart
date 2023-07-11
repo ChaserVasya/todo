@@ -1,10 +1,11 @@
 import 'package:injectable/injectable.dart';
 import 'package:todo/data/dtos/todo_dto/todo_dto.dart';
+import 'package:todo/data/entities/todo/todo_entity.dart';
 import 'package:todo/domain/models/todo.dart';
 
-@singleton
+@lazySingleton
 class TodoMapper {
-  Todo fromDto(TodoDto dto) {
+  Todo fromDto<E extends TodoEntity>(E dto) {
     return Todo(
       id: dto.id,
       todo: dto.text,
@@ -18,6 +19,16 @@ class TodoMapper {
 
   TodoDto toDto(Todo todo) {
     return TodoDto(
+      id: todo.id,
+      text: todo.todo,
+      done: todo.completed,
+      importance: _importanceToDto[todo.priority]!,
+      deadline: todo.deadline?.millisecondsSinceEpoch,
+    );
+  }
+
+  TodoEntity toEntity(Todo todo) {
+    return TodoEntity(
       id: todo.id,
       text: todo.todo,
       done: todo.completed,

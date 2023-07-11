@@ -1,12 +1,14 @@
 import 'dart:collection';
 
+import 'package:injectable/injectable.dart';
 import 'package:todo/application/global.dart';
 import 'package:todo/domain/models/todo.dart';
 import 'package:todo/domain/repositories/todo_repository.dart';
 import 'package:uuid/uuid.dart';
 
-// @Singleton(as: TodoRepository)
-class TodoRepositoryMemory implements TodoRepository {
+@test
+@LazySingleton(as: TodoRepository)
+class TodoRepositoryTempMemory implements TodoRepository {
   static const uuid = Uuid();
 
   final Map<Id, Todo> todos = SplayTreeMap.fromIterables(
@@ -50,21 +52,6 @@ class TodoRepositoryMemory implements TodoRepository {
 
 final _stub = () {
   final stub = [
-    const Todo(
-      todo: 'Купить что-то',
-    ),
-    const Todo(
-      todo: 'Купить что-то',
-    ),
-    const Todo(
-      todo: 'Купить что-то',
-    ),
-    const Todo(
-      todo: 'Купить что-то',
-    ),
-    const Todo(
-      todo: 'Купить что-то',
-    ),
     const Todo(
       todo: 'Купить что-то',
     ),

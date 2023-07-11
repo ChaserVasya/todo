@@ -11,7 +11,7 @@ import 'package:todo/domain/repositories/revision_repository.dart';
 part 'todo_service.g.dart';
 
 @RestApi()
-@singleton
+@lazySingleton
 abstract class TodoService {
   @factoryMethod
   factory TodoService(Dio dio, RevisionRepository revRepo) {
@@ -61,7 +61,11 @@ InterceptorsWrapper _addBodyMapper() {
     opts.data = opts.data['list'] ?? opts.data['element'];
     handler.next(opts);
   }, onRequest: (opts, handler) {
-    opts.data = {'element': opts.data};
+    if (opts.method == 'PATCH') {
+      opts.data = {'list': opts.data};
+    } else {
+      opts.data = {'element': opts.data};
+    }
     handler.next(opts);
   });
 }

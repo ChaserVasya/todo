@@ -2,7 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo/domain/repositories/revision_repository.dart';
 
-@Singleton(as: RevisionRepository)
+@LazySingleton(as: RevisionRepository)
 class RevLocalStorage implements RevisionRepository {
   static const revPrefsKey = 'rev';
 
@@ -14,7 +14,7 @@ class RevLocalStorage implements RevisionRepository {
   int? get() {
     try {
       return prefs.getInt(revPrefsKey);
-    } on Exception catch (e) {
+    } catch (e) {
       return null;
     }
   }

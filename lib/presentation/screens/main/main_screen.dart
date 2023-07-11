@@ -4,9 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo/domain/models/todo.dart';
 import 'package:todo/generated/l10n.dart';
 import 'package:todo/presentation/blocs/todos_bloc/todos_bloc.dart';
+import 'package:todo/presentation/router/config.dart';
+import 'package:todo/presentation/router/delegate.dart';
 import 'package:todo/presentation/screens/main/widgets/add_todo_tile.dart';
 import 'package:todo/presentation/screens/main/widgets/todo_tile.dart';
-import 'package:todo/presentation/screens/todo_editing/todo_editing_dialog.dart';
 import 'package:todo/presentation/uikit/helpers.dart';
 import 'package:todo/presentation/uikit/theme.dart';
 
@@ -20,8 +21,9 @@ class MainScreen extends StatelessWidget {
         final state = context.watch<TodosBloc>().state;
         return state.map<Widget?>(
           loading: (_) => null,
-          main: (_) => FloatingActionButton.large(
-            onPressed: () => createTodo(context),
+          main: (_) => FloatingActionButton.small(
+            onPressed: () => AppRouterDelegate.of(context)
+                .setNewRoutePath(const AppConfig.edit()),
             child: const Icon(Icons.add),
           ),
         );

@@ -10,7 +10,7 @@ class Todo with _$Todo {
 
   const factory Todo({
     Id? id,
-    required String todo,
+    @Default('') String todo,
     DateTime? deadline,
     @Default(Priority.none) Priority priority,
     @Default(false) bool completed,
