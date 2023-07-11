@@ -1,21 +1,26 @@
 # Список дел
 <img src="https://github.com/ChaserVasya/todo/assets/74578917/f4f3f701-1eb9-4f4f-a9e1-13fd61c0bb57"  width="200" height="200">
 
+- ссылка на apk: https://github.com/ChaserVasya/todo/releases/download/3/app-release.apk
+- cсылка на реквест для проверки: https://github.com/ChaserVasya/todo/pull/1
+
+# Проверка дз 3
+диплинк добавления задания `adb shell 'am start -W -a android.intent.action.VIEW -d "todo://example.com/edit"'`
+  
 ## Реализованные фичи
 - есть иконка
 - есть логгирование
-- ссылка на apk: https://github.com/ChaserVasya/todo/releases/tag/2
-- cсылка на реквест для проверки: https://github.com/ChaserVasya/todo/pull/1
 - есть локализация с помощью intl + Flutter intl плагин для AS
 - применяется flutter-lints
-- сохранение данных на диск используется в виде манипуляции ревизии в шаред
+- встроены дип-линки
+- есть синхронизация данных с бэком при старте приложения
 
 ## Слои
 Слои сделаны по принципу layer-first.
 - data-слой содержит 
-- - локальные бд в `storages`
-- - удалённые бд в `services`
-- - вспомогательные утилиты в `services`
+  - локальные бд в `storages`
+  - удалённые бд в `services`
+  - вспомогательные утилиты в `services`
 - domain-слой содержит абстракции
 - application-слой содержит "точки связи", вроде, MaterialApp, di, globals.
 - presentation-слой содержит содержит блоки и вёрстку.
@@ -26,6 +31,13 @@
 - удаление и выполнение Todo по свайпу влево\вправо
 - редактирование Todo
 - фильтрация Todo по выполненности
+
+## Реализованные тесты
+- просто тесты
+  - реализован тест репозитория ревизии
+  - реализован тест репозитория для работы с бэком
+  - реализован тест парсера дип-линков
+- реализован интеграционный тест добавления задания.
 
 ## Скриншоты
 ![Screenshot_20230616_082027](https://github.com/ChaserVasya/todo/assets/74578917/e51898a1-4f77-41e5-980e-7d6724c65e38)
