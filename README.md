@@ -6,6 +6,7 @@
 
 # Проверка дз 3
 диплинк добавления задания `adb shell 'am start -W -a android.intent.action.VIEW -d "todo://example.com/edit"'`
+для запуска интеграционного теста раскоментьте тестовый `_Env` в `env.dart` и закоментьте `part 'env.g.dart';`
   
 ## Реализованные фичи
 - есть иконка
