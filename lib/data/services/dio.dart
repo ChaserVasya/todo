@@ -7,6 +7,7 @@ Dio createYandexClient() {
   final dio = Dio(
     BaseOptions(
       baseUrl: 'https://beta.mrdekk.ru/todobackend',
+      connectTimeout: const Duration(seconds: 7),
       headers: {
         'Authorization': 'Bearer ${Env.token}',
       },
