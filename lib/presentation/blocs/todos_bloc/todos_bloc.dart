@@ -22,6 +22,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
         delete: (event) => _delete(event, emit),
         update: (event) => _update(event, emit),
         filter: (event) => _filter(event, emit),
+        refresh: (event) => _refreshEvent(emit),
         init: (_) => _init(emit),
       ),
       transformer: sequential(),
@@ -68,6 +69,13 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
   Future<void> _refresh(Emitter<TodosState> emit, _Main oldState) async {
     var todos = await _repo.getAll();
     emit(oldState.copyWith(todos: todos));
+  }
+
+  Future<void> _refreshEvent(Emitter<TodosState> emit) async {
+    final main = _ensureMain();
+    emit(const TodosState.loading());
+    var todos = await _repo.getAll();
+    emit(main.copyWith(todos: todos));
   }
 
   Future<void> _init(Emitter<TodosState> emit) async {

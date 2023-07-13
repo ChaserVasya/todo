@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:todo/application/global.dart';
 import 'package:todo/data/repositories/todo_repository_remote.dart';
+import 'package:todo/domain/models/todo.dart';
 import 'package:todo/domain/repositories/todo_repository.dart';
 
 @prod
@@ -20,21 +21,22 @@ class TodoSynchronizer {
     final remoteRepo = _remoteRepo as TodoRepositoryRemote;
     final localTodos = await _localRepo.getAll();
     try {
-      // Если пусто (ток установили) - грузим с сервера
-      if (localTodos.isEmpty) {
-        final remoteTodos = await remoteRepo.getAll();
-        for (final todo in remoteTodos) {
-          await _localRepo.add(todo);
-        }
-      } else {
-        final merged = await remoteRepo.patch(localTodos);
-        for (final todo in merged) {
-          await _localRepo.add(todo);
-        }
-      }
+      final remoteTodos = await remoteRepo.getAll();
+      final merged = _mergeWithOfflineFirst(localTodos, remoteTodos);
+      await Future.wait(
+        [for (final todo in merged) _localRepo.add(todo)],
+      );
+      await remoteRepo.patch(merged);
       logger.d('synchronized');
     } catch (e) {
       logger.d('not synchronized');
     }
+  }
+
+  List<Todo> _mergeWithOfflineFirst(List<Todo> offline, List<Todo> online) {
+    return {
+      for (final todo in online) todo.id!: todo,
+      for (final todo in offline) todo.id!: todo,
+    }.values.toList();
   }
 }
