@@ -60,7 +60,7 @@ class TodoRepositoryRemote implements TodoRepository {
     );
   }
 
-  Future<void> patch(List<Todo> todos) async {
+  Future<List<Todo>> patch(List<Todo> todos) async {
     logger.d('patch remote');
     await getAll();
     final deviceId = (await device.getId())!;
@@ -71,6 +71,7 @@ class TodoRepositoryRemote implements TodoRepository {
         lastUpdatedBy: deviceId,
       );
     }).toList();
-    await service.updateTodos(dtos);
+    final merged = await service.updateTodos(dtos);
+    return merged.map(mapper.fromDto).toList();
   }
 }

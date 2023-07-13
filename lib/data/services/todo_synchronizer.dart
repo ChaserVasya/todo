@@ -27,7 +27,10 @@ class TodoSynchronizer {
           await _localRepo.add(todo);
         }
       } else {
-        await remoteRepo.patch(localTodos);
+        final merged = await remoteRepo.patch(localTodos);
+        for (final todo in merged) {
+          await _localRepo.add(todo);
+        }
       }
       logger.d('synchronized');
     } catch (e) {

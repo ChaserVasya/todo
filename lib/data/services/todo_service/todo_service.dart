@@ -27,7 +27,7 @@ abstract class TodoService {
   Future<List<TodoDto>> getTodos();
 
   @PATCH('/list')
-  Future<void> updateTodos(@Body() List<TodoDto> todos);
+  Future<List<TodoDto>> updateTodos(@Body() List<TodoDto> todos);
 
   @POST('/list')
   Future<TodoDto> createTodo(@Body() TodoDto todo);
@@ -57,17 +57,20 @@ InterceptorsWrapper _addRevisionWrapper(RevisionRepository revRepo) {
 }
 
 InterceptorsWrapper _addBodyMapper() {
-  return InterceptorsWrapper(onResponse: (opts, handler) {
-    opts.data = opts.data['list'] ?? opts.data['element'];
-    handler.next(opts);
-  }, onRequest: (opts, handler) {
-    if (opts.method == 'PATCH') {
-      opts.data = {'list': opts.data};
-    } else {
-      opts.data = {'element': opts.data};
-    }
-    handler.next(opts);
-  });
+  return InterceptorsWrapper(
+    onResponse: (opts, handler) {
+      opts.data = opts.data['list'] ?? opts.data['element'];
+      handler.next(opts);
+    },
+    onRequest: (opts, handler) {
+      if (opts.method == 'PATCH') {
+        opts.data = {'list': opts.data};
+      } else {
+        opts.data = {'element': opts.data};
+      }
+      handler.next(opts);
+    },
+  );
 }
 
 InterceptorsWrapper _addLogger() {
