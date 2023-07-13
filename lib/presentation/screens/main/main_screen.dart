@@ -10,7 +10,6 @@ import 'package:todo/presentation/screens/main/widgets/add_todo_tile.dart';
 import 'package:todo/presentation/screens/main/widgets/todo_tile.dart';
 import 'package:todo/presentation/uikit/helpers.dart';
 import 'package:todo/presentation/uikit/theme.dart';
-import 'package:todo/utils/extensions.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -22,20 +21,10 @@ class MainScreen extends StatelessWidget {
         final state = context.watch<TodosBloc>().state;
         return state.map<Widget?>(
           loading: (_) => null,
-          main: (_) => Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              FloatingActionButton(
-                onPressed: () => AppRouterDelegate.of(context)
-                    .setNewRoutePath(const AppConfig.edit()),
-                child: const Icon(Icons.add),
-              ),
-              FloatingActionButton(
-                onPressed: () =>
-                    context.read<TodosBloc>().add(const TodosEvent.refresh()),
-                child: const Icon(Icons.refresh),
-              ),
-            ].separateBy(const SizedBox(height: 10)),
+          main: (_) => FloatingActionButton(
+            onPressed: () => AppRouterDelegate.of(context)
+                .setNewRoutePath(const AppConfig.edit()),
+            child: const Icon(Icons.add),
           ),
         );
       }(),
