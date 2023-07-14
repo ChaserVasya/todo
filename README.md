@@ -1,7 +1,7 @@
 # Список дел
 <img src="https://github.com/ChaserVasya/todo/assets/74578917/f4f3f701-1eb9-4f4f-a9e1-13fd61c0bb57"  width="200" height="200">
 
-- ссылка на apk: https://github.com/ChaserVasya/todo/releases/download/3/app-release.apk
+- ссылка на apk: https://github.com/ChaserVasya/todo/releases/download/3.1/app-release.apk
 - cсылка на реквест для проверки: https://github.com/ChaserVasya/todo/pull/1
 
 # Проверка дз 3
