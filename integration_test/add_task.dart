@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:todo/main.dart' as app;
+import 'package:todo/main_test.dart' as app;
 import 'package:todo/presentation/screens/todo_editing/widgets/todo_editing_card.dart';
 
 void main() {
@@ -10,8 +10,7 @@ void main() {
   testWidgets('После создания задание отобразится в списке', (tester) async {
     const enteredText = 'some text';
 
-    const env = 'test';
-    await app.main([env]);
+    await app.main();
     await tester.pumpAndSettle();
 
     // вошли в экран нового задания

@@ -8,17 +8,13 @@ import 'package:todo/application/global.dart';
 import 'package:todo/data/services/todo_synchronizer.dart';
 import 'package:todo/utils/ui.dart';
 
-Future<void> main(List<String> env) async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   settingUpSystemUIOverlay();
-  final outerEnv = env.isNotEmpty ? env.single : null;
-  logger.d('outerEnv: $outerEnv');
-  await configureDependencies(outerEnv ?? Environment.prod);
+  await configureDependencies(Environment.prod);
   runZonedGuarded(
     () async {
-      if (outerEnv != 'test') {
-        await getIt<TodoSynchronizer>().synchronize();
-      }
+      await getIt<TodoSynchronizer>().synchronize();
       runApp(const App());
     },
     (e, s) => logger.e(e, e, s),
