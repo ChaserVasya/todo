@@ -50,3 +50,6 @@ app.*.map.json
 # secrets
 .env
 env.*.dart
+
+# ide
+.fvm/flutter_sdk
