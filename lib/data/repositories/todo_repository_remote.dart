@@ -6,27 +6,27 @@ import 'package:todo/data/services/todo_service/todo_service.dart';
 import 'package:todo/domain/models/todo.dart';
 import 'package:todo/domain/repositories/todo_repository.dart';
 
-@Named('remote')
 @prod
 @dev
+@Named('remote')
 @LazySingleton(as: TodoRepository)
 class TodoRepositoryRemote implements TodoRepository {
-  final TodoService service;
-  final TodoMapper mapper;
-  final DeviceRepository device;
+  final TodoService _service;
+  final TodoMapper _mapper;
+  final DeviceRepository _device;
 
-  TodoRepositoryRemote(this.service, this.mapper, this.device);
+  TodoRepositoryRemote(this._service, this._mapper, this._device);
 
   @override
   Future<void> add(Todo todo) async {
     logger.d('add to remote');
     await getAll();
-    final dto = mapper.toDto(todo);
-    await service.createTodo(
+    final dto = _mapper.toDto(todo);
+    await _service.createTodo(
       dto.copyWith(
         createdAt: DateTime.now().millisecondsSinceEpoch,
         changedAt: DateTime.now().millisecondsSinceEpoch,
-        lastUpdatedBy: (await device.getId())!,
+        lastUpdatedBy: (await _device.getId())!,
       ),
     );
   }
@@ -35,27 +35,27 @@ class TodoRepositoryRemote implements TodoRepository {
   Future<Todo?> delete(Id id) async {
     logger.d('delete from remote');
     await getAll();
-    final dto = await service.deleteTodo(id);
-    return mapper.fromDto(dto);
+    final dto = await _service.deleteTodo(id);
+    return _mapper.fromDto(dto);
   }
 
   @override
   Future<List<Todo>> getAll() async {
     logger.d('get all from remote');
-    final dtos = await service.getTodos();
-    return dtos.map(mapper.fromDto).toList();
+    final dtos = await _service.getTodos();
+    return dtos.map(_mapper.fromDto).toList();
   }
 
   @override
   Future<void> update(Todo todo) async {
     logger.d('update remote');
     await getAll();
-    await service.updateTodo(
+    await _service.updateTodo(
       todo.id!,
-      mapper.toDto(todo).copyWith(
+      _mapper.toDto(todo).copyWith(
             createdAt: DateTime.now().millisecondsSinceEpoch,
             changedAt: DateTime.now().millisecondsSinceEpoch,
-            lastUpdatedBy: (await device.getId())!,
+            lastUpdatedBy: (await _device.getId())!,
           ),
     );
   }
@@ -63,15 +63,15 @@ class TodoRepositoryRemote implements TodoRepository {
   Future<List<Todo>> patch(List<Todo> todos) async {
     logger.d('patch remote');
     await getAll();
-    final deviceId = (await device.getId())!;
-    final dtos = todos.map(mapper.toDto).map((e) {
+    final deviceId = (await _device.getId())!;
+    final dtos = todos.map(_mapper.toDto).map((e) {
       return e.copyWith(
         createdAt: DateTime.now().millisecondsSinceEpoch,
         changedAt: DateTime.now().millisecondsSinceEpoch,
         lastUpdatedBy: deviceId,
       );
     }).toList();
-    final merged = await service.updateTodos(dtos);
-    return merged.map(mapper.fromDto).toList();
+    final merged = await _service.updateTodos(dtos);
+    return merged.map(_mapper.fromDto).toList();
   }
 }

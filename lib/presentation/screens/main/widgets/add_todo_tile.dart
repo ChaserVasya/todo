@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todo/application/di/di.dart';
 import 'package:todo/generated/l10n.dart';
-import 'package:todo/presentation/router/config.dart';
-import 'package:todo/presentation/router/delegate.dart';
+import 'package:todo/presentation/navigation.dart';
 import 'package:todo/presentation/uikit/theme.dart';
 
 class AddTodoTile extends StatelessWidget {
@@ -13,8 +13,7 @@ class AddTodoTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
         leading: IconButton(
-          onPressed: () => AppRouterDelegate.of(context)
-              .setNewRoutePath(const AppConfig.edit()),
+          onPressed: () => getIt<Navigation>().goToEdit(),
           icon: const Icon(Icons.add),
         ),
         title: Text(

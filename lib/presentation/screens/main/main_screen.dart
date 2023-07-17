@@ -1,15 +1,17 @@
 import 'package:dartx/dartx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo/application/di/di.dart';
 import 'package:todo/domain/models/todo.dart';
 import 'package:todo/generated/l10n.dart';
+import 'package:todo/presentation/blocs/theme_cubit.dart';
 import 'package:todo/presentation/blocs/todos_bloc/todos_bloc.dart';
-import 'package:todo/presentation/router/config.dart';
-import 'package:todo/presentation/router/delegate.dart';
+import 'package:todo/presentation/navigation.dart';
 import 'package:todo/presentation/screens/main/widgets/add_todo_tile.dart';
 import 'package:todo/presentation/screens/main/widgets/todo_tile.dart';
 import 'package:todo/presentation/uikit/helpers.dart';
 import 'package:todo/presentation/uikit/theme.dart';
+import 'package:todo/utils/extensions.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -21,43 +23,62 @@ class MainScreen extends StatelessWidget {
         final state = context.watch<TodosBloc>().state;
         return state.map<Widget?>(
           loading: (_) => null,
-          main: (_) => FloatingActionButton(
-            onPressed: () => AppRouterDelegate.of(context)
-                .setNewRoutePath(const AppConfig.edit()),
-            child: const Icon(Icons.add),
+          main: (_) => Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              FloatingActionButton(
+                onPressed: () => context.read<ThemeCubit>().toggle(),
+                child: BlocBuilder<ThemeCubit, Brightness>(
+                  builder: (_, brightness) {
+                    switch (brightness) {
+                      case Brightness.dark:
+                        return const Icon(Icons.dark_mode);
+                      case Brightness.light:
+                        return const Icon(Icons.light_mode);
+                    }
+                  },
+                ),
+              ),
+              FloatingActionButton(
+                onPressed: () => getIt<Navigation>().goToEdit(),
+                child: const Icon(Icons.add),
+              ),
+            ].separateBy(const SizedBox(height: 10)),
           ),
         );
       }(),
       resizeToAvoidBottomInset: true,
-      body: BlocBuilder<TodosBloc, TodosState>(
-        builder: (context, state) => state.when(
-          loading: () => const Center(
-            child: CircularProgressIndicator(),
+      body: SafeArea(
+        child: BlocBuilder<TodosBloc, TodosState>(
+          builder: (context, state) => state.when(
+            loading: () => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            main: (todos, shouldFilter) {
+              if (shouldFilter) {
+                todos = todos.filter((e) => !e.completed).toList();
+              }
+              return CustomScrollView(
+                slivers: [
+                  _createMainAppBar(context, todos, shouldFilter),
+                  SliverList(
+                    delegate: SliverChildListDelegate([
+                      Card(
+                        margin: const EdgeInsets.all(8),
+                        child: Column(
+                          children: [
+                            for (final todo in todos)
+                              TodoTile(todo, key: ObjectKey(todo.id)),
+                            const AddTodoTile(),
+                          ],
+                        ),
+                      )
+                    ]),
+                  ),
+                ],
+              );
+            },
           ),
-          main: (todos, shouldFilter) {
-            if (shouldFilter) {
-              todos = todos.filter((e) => !e.completed).toList();
-            }
-            return CustomScrollView(
-              slivers: [
-                _createMainAppBar(context, todos, shouldFilter),
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    Card(
-                      margin: const EdgeInsets.all(8),
-                      child: Column(
-                        children: [
-                          for (final todo in todos)
-                            TodoTile(todo, key: ObjectKey(todo.id)),
-                          const AddTodoTile(),
-                        ],
-                      ),
-                    )
-                  ]),
-                ),
-              ],
-            );
-          },
         ),
       ),
     );

@@ -14,9 +14,56 @@ abstract class ColorsUI {
   static const textTertiary = Color(0x4D000000);
 }
 
-const lightColorScheme = ColorScheme(
+final darkTheme = ThemeData(
+  colorScheme: _darkColorScheme,
+  textTheme: _textTheme,
+  dividerTheme: const DividerThemeData(
+    color: Color(0x33FFFFFF),
+  ),
+  scaffoldBackgroundColor: _darkColorScheme.background,
+  appBarTheme: AppBarTheme(
+    backgroundColor: _darkColorScheme.background,
+    systemOverlayStyle: _systemInterfaceWithIconColor(Brightness.light),
+    iconTheme: const IconThemeData(
+      color: ColorsUI.textTertiary,
+    ),
+  ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: _darkColorScheme.primary,
+  ),
+);
+
+final lightTheme = ThemeData(
+  colorScheme: _lightColorScheme,
+  textTheme: _textTheme,
+  dividerTheme: const DividerThemeData(
+    color: Color(0x33000000),
+  ),
+  scaffoldBackgroundColor: _lightColorScheme.background,
+  appBarTheme: AppBarTheme(
+    backgroundColor: _lightColorScheme.background,
+    systemOverlayStyle: _systemInterfaceWithIconColor(Brightness.dark),
+    iconTheme: const IconThemeData(
+      color: ColorsUI.textTertiary,
+    ),
+  ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: _lightColorScheme.primary,
+  ),
+);
+
+SystemUiOverlayStyle _systemInterfaceWithIconColor(Brightness brightness) {
+  return SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: brightness,
+    systemNavigationBarColor: Colors.transparent,
+    systemNavigationBarDividerColor: Colors.transparent,
+    systemNavigationBarIconBrightness: brightness,
+  );
+}
+
+const _lightColorScheme = ColorScheme(
   brightness: Brightness.light,
-  // primary: Color(0xFFF7F6F2),
   primary: ColorsUI.blue,
   onPrimary: ColorsUI.white,
   secondary: ColorsUI.blue,
@@ -29,7 +76,22 @@ const lightColorScheme = ColorScheme(
   onBackground: ColorsUI.white,
 );
 
-const textTheme = TextTheme(
+const _darkColorScheme = ColorScheme(
+  brightness: Brightness.dark,
+  // primary: Color(0xFF161618),
+  primary: ColorsUI.blue,
+  onPrimary: ColorsUI.white,
+  secondary: Color(0xFF252528),
+  onSecondary: ColorsUI.white,
+  surface: ColorsUI.black,
+  onSurface: ColorsUI.white,
+  error: ColorsUI.red,
+  onError: ColorsUI.white,
+  background: Color(0xFF161618),
+  onBackground: ColorsUI.white,
+);
+
+const _textTheme = TextTheme(
   titleLarge: TextStyle(
     fontSize: 32,
     fontWeight: FontWeight.w500,
@@ -49,27 +111,5 @@ const textTheme = TextTheme(
   labelMedium: TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w400,
-  ),
-);
-
-final theme = ThemeData(
-  colorScheme: lightColorScheme,
-  textTheme: textTheme,
-  dividerTheme: const DividerThemeData(
-    color: Color(0x33000000),
-  ),
-  scaffoldBackgroundColor: const Color(0xFFF7F6F2),
-  appBarTheme: AppBarTheme(
-    backgroundColor: lightColorScheme.background,
-    systemOverlayStyle: const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      systemNavigationBarColor: Colors.transparent,
-      systemNavigationBarDividerColor: Colors.transparent,
-      systemNavigationBarIconBrightness: Brightness.dark,
-    ),
-  ),
-  iconTheme: const IconThemeData(
-    color: ColorsUI.textTertiary,
   ),
 );

@@ -35,6 +35,10 @@ dependencies:
   floor: ^1.4.2
   internet_connection_checker: ^1.0.0+1
   json_annotation: ^4.8.1
+  firebase_remote_config: ^4.2.4
+  firebase_core: ^2.15.0
+  hexcolor: ^3.0.1
+  firebase_analytics: ^10.4.4
 
 dev_dependencies:
   integration_test:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:todo/application/di/di.dart';
 import 'package:todo/presentation/blocs/todo_editing_cubit/todo_editing_cubit.dart';
 import 'package:todo/presentation/blocs/todos_bloc/todos_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:todo/presentation/router/config.dart';
 import 'package:todo/presentation/screens/main/main_screen.dart';
 import 'package:todo/presentation/screens/todo_editing/todo_editing_dialog.dart';
 
+@lazySingleton
 class AppRouterDelegate extends RouterDelegate<AppConfig>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<AppConfig> {
   AppConfig state = const AppConfig.main();
@@ -49,10 +51,6 @@ class AppRouterDelegate extends RouterDelegate<AppConfig>
         },
       ),
     );
-  }
-
-  static AppRouterDelegate of(BuildContext context) {
-    return Router.of(context).routerDelegate as AppRouterDelegate;
   }
 
   @override

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo/application/di/di.dart';
 import 'package:todo/domain/models/todo.dart';
+import 'package:todo/presentation/blocs/importance_color_cubit.dart';
 import 'package:todo/presentation/blocs/todos_bloc/todos_bloc.dart';
-import 'package:todo/presentation/router/config.dart';
-import 'package:todo/presentation/router/delegate.dart';
-import 'package:todo/presentation/widgets/priority_icon.dart';
+import 'package:todo/presentation/navigation.dart';
 import 'package:todo/presentation/uikit/date_time_text.dart';
 import 'package:todo/presentation/uikit/helpers.dart';
 import 'package:todo/presentation/uikit/theme.dart';
+import 'package:todo/presentation/widgets/priority_icon.dart';
 import 'package:todo/utils/extensions.dart';
 
 class TodoTile extends StatelessWidget {
@@ -23,8 +24,7 @@ class TodoTile extends StatelessWidget {
       child: ListTile(
         leading: _TodoCompletedCheckBox(todo),
         trailing: const Icon(Icons.info_outline),
-        onTap: () =>
-            AppRouterDelegate.of(context).setNewRoutePath(AppConfig.edit(todo)),
+        onTap: () => getIt<Navigation>().goToEdit(todo),
         title: Row(
           children: <Widget>[
             if (todo.priority != Priority.none && !todo.completed)
@@ -148,18 +148,22 @@ class _TodoCompletedCheckBox extends StatelessWidget {
             Positioned(
               top: 15,
               left: 15,
-              child: Container(
-                height: 18,
-                width: 18,
-                decoration: BoxDecoration(
-                  color: ColorsUI.red.withOpacity(0.5),
-                  border: Border.all(
-                    color: Colors.red,
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-                alignment: Alignment.center,
+              child: BlocBuilder<ImportanceColorCubit, Color>(
+                builder: (context, state) {
+                  return Container(
+                    height: 18,
+                    width: 18,
+                    decoration: BoxDecoration(
+                      color: state.withOpacity(0.5),
+                      border: Border.all(
+                        color: state,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                    alignment: Alignment.center,
+                  );
+                },
               ),
             ),
           Checkbox(
@@ -172,16 +176,7 @@ class _TodoCompletedCheckBox extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(2),
             ),
-            fillColor: MaterialStateProperty.resolveWith((states) {
-              if (todo.completed) {
-                return ColorsUI.green;
-              } else {
-                if (todo.priority == Priority.high) {
-                  return ColorsUI.red;
-                }
-              }
-              return Colors.red;
-            }),
+            fillColor: MaterialStateProperty.all(ColorsUI.green),
             side: BorderSide(
               color: th(context).dividerTheme.color!,
               width: 2,

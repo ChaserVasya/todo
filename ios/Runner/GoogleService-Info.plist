@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>808831159898-8lqmqnfkh1rf8ejampsm3tg4bertu317.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.808831159898-8lqmqnfkh1rf8ejampsm3tg4bertu317</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCDZc_F-qNr36HFvCL_15kgsbVDs33qKdU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>808831159898</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.vchaser.todo</string>
+	<key>PROJECT_ID</key>
+	<string>todo-b1ad0</string>
+	<key>STORAGE_BUCKET</key>
+	<string>todo-b1ad0.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:808831159898:ios:6095de5733c818d6e19263</string>
+</dict>
+</plist>

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:todo/application/di/di.dart';
 import 'package:todo/application/global.dart';
 import 'package:todo/data/dtos/todo_dto/todo_dto.dart';
@@ -8,6 +9,7 @@ import 'package:todo/data/mappers/todo_mapper.dart';
 
 import 'config.dart';
 
+@lazySingleton
 class AppRouteInformationParser extends RouteInformationParser<AppConfig> {
   @override
   Future<AppConfig> parseRouteInformation(

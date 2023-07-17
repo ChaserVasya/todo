@@ -6,9 +6,11 @@ import 'package:todo/application/app.dart';
 import 'package:todo/application/di/di.dart';
 import 'package:todo/application/global.dart';
 import 'package:todo/data/services/todo_synchronizer.dart';
+import 'package:todo/utils/ui.dart';
 
 Future<void> main(List<String> env) async {
   WidgetsFlutterBinding.ensureInitialized();
+  settingUpSystemUIOverlay();
   final outerEnv = env.isNotEmpty ? env.single : null;
   logger.d('outerEnv: $outerEnv');
   await configureDependencies(outerEnv ?? Environment.prod);
