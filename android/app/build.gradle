@@ -71,7 +71,7 @@ android {
     productFlavors {
         production {
             dimension "default"
-            resValue "string", "app_name", "todo"
+            resValue "string", "app_name", "todo_prod"
             applicationIdSuffix ""
         }
         development {
