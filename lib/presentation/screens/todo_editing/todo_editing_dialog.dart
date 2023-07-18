@@ -46,20 +46,20 @@ class NewTaskDialogBody extends StatelessWidget {
         ),
         body: SafeArea(
           child: ListView(
-            children: [
-              const TodoEditingCard(),
+            children: const [
+              TodoEditingCard(),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
-                  children: const [
+                  children: [
                     PriorityEditingTile(),
                     Divider(),
                     DeadlineEditingTile(),
                   ],
                 ),
               ),
-              const Divider(),
-              const DeleteTodoTile(),
+              Divider(),
+              DeleteTodoTile(),
             ],
           ),
         ),
