@@ -27,6 +27,10 @@ class MainScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               FloatingActionButton(
+                onPressed: () => throw Exception('Crash for Crashlytics'),
+                child: const Text('Crash', style: TextStyle(fontSize: 14)),
+              ),
+              FloatingActionButton(
                 onPressed: () => context.read<ThemeCubit>().toggle(),
                 child: BlocBuilder<ThemeCubit, Brightness>(
                   builder: (_, brightness) {

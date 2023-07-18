@@ -2,11 +2,13 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todo/application/exceptions/handle_exceptions.dart';
 import 'package:todo/data/services/dio.dart';
 import 'package:todo/data/storages/daos/todo_dao.dart';
 import 'package:todo/data/storages/db/db.dart';
@@ -19,6 +21,7 @@ final getIt = GetIt.instance;
 @InjectableInit()
 Future<void> configureDependencies(String env) async {
   await getIt.init(environment: env);
+  handleExceptions();
 }
 
 @module
@@ -70,4 +73,10 @@ abstract class RegisterModule {
   @dev
   @singleton
   FirebaseAnalytics analytics(FirebaseApp app) => FirebaseAnalytics.instance;
+
+  @prod
+  @dev
+  @singleton
+  FirebaseCrashlytics crashlytics(FirebaseApp app) =>
+      FirebaseCrashlytics.instance;
 }
