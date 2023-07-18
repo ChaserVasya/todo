@@ -8,8 +8,9 @@ import 'package:todo/domain/repositories/todo_repository.dart';
 
 @prod
 @dev
-@Named('remote')
-@LazySingleton(as: TodoRepository)
+@lazySingleton
+// @Named('remote')
+// @LazySingleton(as: TodoRepository)
 class TodoRepositoryRemote implements TodoRepository {
   final TodoService _service;
   final TodoMapper _mapper;

@@ -9,11 +9,11 @@ import 'package:todo/data/services/todo_synchronizer.dart';
 import 'package:todo/utils/ui.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  settingUpSystemUIOverlay();
-  await configureDependencies(Environment.dev);
   runZonedGuarded(
     () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      settingUpSystemUIOverlay();
+      await configureDependencies(Environment.dev);
       await getIt<TodoSynchronizer>().synchronize();
       runApp(const App());
     },
