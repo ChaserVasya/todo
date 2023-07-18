@@ -8,11 +8,13 @@ import 'package:todo/application/global.dart';
 import 'package:todo/utils/ui.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  settingUpSystemUIOverlay();
-  await configureDependencies(Environment.test);
   runZonedGuarded(
-    () => runApp(const App()),
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+      settingUpSystemUIOverlay();
+      await configureDependencies(Environment.test);
+      runApp(const App());
+    },
     (e, s) => logger.e(e, e, s),
   );
 }
