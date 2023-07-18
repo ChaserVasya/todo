@@ -31,16 +31,7 @@ class App extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, Brightness>(
         builder: (_, brightness) {
           return MaterialApp.router(
-            theme: _chooseTheme(brightness).copyWith(
-              colorScheme: _chooseTheme(brightness).colorScheme.copyWith(
-                    background: Colors.red,
-                    onBackground: Colors.red,
-                    secondary: Colors.red,
-                    secondaryContainer: Colors.red,
-                    surface: Colors.red,
-                  ),
-              canvasColor: Colors.red,
-            ),
+            theme: _chooseTheme(brightness),
             debugShowCheckedModeBanner: false,
             routerDelegate: getIt<AppRouterDelegate>(),
             routeInformationParser: getIt<AppRouteInformationParser>(),
