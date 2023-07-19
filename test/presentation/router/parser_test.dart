@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:logger/logger.dart';
 import 'package:todo/presentation/router/parser.dart';
 
 void main() {
   late AppRouteInformationParser parser;
 
-  setUp(() => parser = AppRouteInformationParser());
+  setUp(() => parser = AppRouteInformationParser(Logger()));
   parse(String? str) {
     return parser.parseRouteInformation(RouteInformation(location: str));
   }

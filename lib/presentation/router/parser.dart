@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 import 'package:todo/application/di/di.dart';
-import 'package:todo/application/global.dart';
 import 'package:todo/data/dtos/todo_dto/todo_dto.dart';
 import 'package:todo/data/mappers/todo_mapper.dart';
 
@@ -11,11 +11,15 @@ import 'config.dart';
 
 @lazySingleton
 class AppRouteInformationParser extends RouteInformationParser<AppConfig> {
+  final Logger _logger;
+
+  const AppRouteInformationParser(this._logger);
+
   @override
   Future<AppConfig> parseRouteInformation(
     RouteInformation routeInformation,
   ) async {
-    logger.v(routeInformation.location);
+    _logger.d(routeInformation.location);
     final location = routeInformation.location;
     if (location == null) {
       return const AppConfig.main();

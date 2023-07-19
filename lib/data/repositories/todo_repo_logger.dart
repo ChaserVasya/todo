@@ -1,47 +1,45 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 import 'package:todo/data/repositories/todo_repository_remote.dart';
 import 'package:todo/domain/models/todo.dart';
-import 'package:todo/domain/repositories/todo_repository.dart';
 
-@Named('remote')
-@LazySingleton(as: TodoRepository)
+@lazySingleton
 class TodoRepositoryLogger implements TodoRepositoryRemote {
-  final TodoRepositoryRemote _repo;
-  final FirebaseAnalytics _logger;
+  const TodoRepositoryLogger(this._repo, this._logger);
 
-  TodoRepositoryLogger(this._repo, this._logger);
+  final TodoRepositoryRemote _repo;
+  final Logger _logger;
 
   @override
   Future<void> add(Todo todo) async {
     await _repo.add(todo);
-    await _logger.logEvent(name: 'add');
+    _logger.i('add');
   }
 
   @override
   Future<Todo?> delete(String id) async {
     final res = await _repo.delete(id);
-    await _logger.logEvent(name: 'delete');
+    _logger.i('delete');
     return res;
   }
 
   @override
   Future<List<Todo>> getAll() async {
     final res = await _repo.getAll();
-    await _logger.logEvent(name: 'getAll');
+    _logger.i('getAll');
     return res;
   }
 
   @override
   Future<void> update(Todo todo) async {
     await _repo.update(todo);
-    await _logger.logEvent(name: 'update');
+    _logger.i('update');
   }
 
   @override
   Future<List<Todo>> patch(List<Todo> todos) async {
     final res = await _repo.patch(todos);
-    await _logger.logEvent(name: 'patch');
+    _logger.i('patch');
     return res;
   }
 }

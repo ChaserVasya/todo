@@ -5,17 +5,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:injectable/injectable.dart';
-import 'package:todo/application/global.dart';
+import 'package:logger/logger.dart';
 import 'package:todo/presentation/uikit/theme.dart';
 
 @lazySingleton
 class ImportanceColorCubit extends Cubit<Color> {
   final FirebaseRemoteConfig _remote;
+  final Logger _logger;
 
   static const _initColor = ColorsUI.red;
   static const _colorField = 'importanceColor';
 
-  ImportanceColorCubit(this._remote) : super(_initColor) {
+  ImportanceColorCubit(this._remote, this._logger) : super(_initColor) {
     _init();
   }
 
@@ -30,15 +31,15 @@ class ImportanceColorCubit extends Cubit<Color> {
       );
       await _remote.fetchAndActivate();
       emit(HexColor(_remote.getString(_colorField)));
-      logger.d('New importance color: ${_remote.getString(_colorField)}');
+      _logger.d('New importance color: ${_remote.getString(_colorField)}');
 
       _remote.onConfigUpdated.listen((event) async {
         await _remote.activate();
         emit(HexColor(_remote.getString(_colorField)));
-        logger.d('New importance color: ${_remote.getString(_colorField)}');
+        _logger.d('New importance color: ${_remote.getString(_colorField)}');
       });
     } on FirebaseException catch (e) {
-      logger.e('$e');
+      _logger.e('$e');
       rethrow;
     }
   }

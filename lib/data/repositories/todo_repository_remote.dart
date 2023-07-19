@@ -1,16 +1,11 @@
 import 'package:injectable/injectable.dart';
-import 'package:todo/application/global.dart';
 import 'package:todo/data/mappers/todo_mapper.dart';
 import 'package:todo/data/repositories/device_repository.dart';
 import 'package:todo/data/services/todo_service/todo_service.dart';
 import 'package:todo/domain/models/todo.dart';
 import 'package:todo/domain/repositories/todo_repository.dart';
 
-@prod
-@dev
 @lazySingleton
-// @Named('remote')
-// @LazySingleton(as: TodoRepository)
 class TodoRepositoryRemote implements TodoRepository {
   final TodoService _service;
   final TodoMapper _mapper;
@@ -20,7 +15,6 @@ class TodoRepositoryRemote implements TodoRepository {
 
   @override
   Future<void> add(Todo todo) async {
-    logger.d('add to remote');
     await getAll();
     final dto = _mapper.toDto(todo);
     await _service.createTodo(
@@ -34,7 +28,6 @@ class TodoRepositoryRemote implements TodoRepository {
 
   @override
   Future<Todo?> delete(Id id) async {
-    logger.d('delete from remote');
     await getAll();
     final dto = await _service.deleteTodo(id);
     return _mapper.fromDto(dto);
@@ -42,14 +35,12 @@ class TodoRepositoryRemote implements TodoRepository {
 
   @override
   Future<List<Todo>> getAll() async {
-    logger.d('get all from remote');
     final dtos = await _service.getTodos();
     return dtos.map(_mapper.fromDto).toList();
   }
 
   @override
   Future<void> update(Todo todo) async {
-    logger.d('update remote');
     await getAll();
     await _service.updateTodo(
       todo.id!,
@@ -62,7 +53,6 @@ class TodoRepositoryRemote implements TodoRepository {
   }
 
   Future<List<Todo>> patch(List<Todo> todos) async {
-    logger.d('patch remote');
     await getAll();
     final deviceId = (await _device.getId())!;
     final dtos = todos.map(_mapper.toDto).map((e) {

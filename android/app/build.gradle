@@ -79,6 +79,11 @@ android {
             resValue "string", "app_name", "todo_dev"
             applicationIdSuffix ""
         }
+        stub_repos {
+            dimension "default"
+            resValue "string", "app_name", "todo_stub_repos"
+            applicationIdSuffix ""
+        }
     }
 }
 

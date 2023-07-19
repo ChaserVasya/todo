@@ -1,15 +1,15 @@
 import 'dart:collection';
 
-import 'package:injectable/injectable.dart';
-import 'package:todo/application/global.dart';
+import 'package:logger/logger.dart';
 import 'package:todo/domain/models/todo.dart';
 import 'package:todo/domain/repositories/todo_repository.dart';
 import 'package:uuid/uuid.dart';
 
-@test
-@LazySingleton(as: TodoRepository)
 class TodoRepositoryTempMemory implements TodoRepository {
-  static const uuid = Uuid();
+  TodoRepositoryTempMemory(this._logger, this.uuid);
+
+  final Logger _logger;
+  final Uuid uuid;
 
   final Map<Id, Todo> todos = SplayTreeMap.fromIterables(
     _stub.map((e) => e.id!),
@@ -24,7 +24,7 @@ class TodoRepositoryTempMemory implements TodoRepository {
     final newId = genId();
     todos[newId] = todo.copyWith(id: newId);
 
-    logger.d('$todo');
+    _logger.d('$todo');
   }
 
   @override
@@ -32,12 +32,12 @@ class TodoRepositoryTempMemory implements TodoRepository {
     if (todo.id == null) return;
     todos[todo.id!] = todo;
 
-    logger.d('$todo');
+    _logger.d('$todo');
   }
 
   @override
   Future<Todo?> delete(Id id) async {
-    logger.d(id);
+    _logger.d(id);
 
     return todos.remove(id);
   }

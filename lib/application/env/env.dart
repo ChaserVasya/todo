@@ -2,12 +2,8 @@ import 'package:envied/envied.dart';
 
 part 'env.g.dart';
 
-@Envied(path: '.env', obfuscate: true)
+@Envied(path: '.env')
 abstract class Env {
-  @EnviedField(varName: 'TOKEN')
+  @EnviedField(varName: 'TOKEN', defaultValue: '')
   static String token = _Env.token;
 }
-
-// class _Env {
-//   static const String token = '';
-// }

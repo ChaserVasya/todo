@@ -1,12 +1,8 @@
-import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:todo/domain/models/todo.dart';
 import 'package:todo/domain/repositories/todo_repository.dart';
 import 'package:uuid/uuid.dart';
 
-@prod
-@dev
-@LazySingleton(as: TodoRepository)
 class MultiTodoRepository implements TodoRepository {
   final TodoRepository _localRepo;
   final TodoRepository _remoteRepo;
@@ -16,8 +12,8 @@ class MultiTodoRepository implements TodoRepository {
   static const uuid = Uuid();
 
   MultiTodoRepository(
-    @Named('pers') this._localRepo,
-    @Named('remote') this._remoteRepo,
+    this._localRepo,
+    this._remoteRepo,
     this._connectionChecker,
   );
 

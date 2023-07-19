@@ -3,15 +3,16 @@ import 'dart:ui';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:todo/application/di/di.dart';
 import 'package:todo/presentation/uikit/snack_bars/error.dart';
 
 void handleExceptions() {
   Bloc.observer = _BlocErrorHandler();
-  FlutterError.onError = getIt<FirebaseCrashlytics>().recordFlutterFatalError;
+  FlutterError.onError = (error) => getIt<Logger>().e(error.exception, null);
   // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
   PlatformDispatcher.instance.onError = (error, stack) {
-    getIt<FirebaseCrashlytics>().recordError(error, stack, fatal: true);
+    getIt<Logger>().e(error, stack);
     return true;
   };
 }
