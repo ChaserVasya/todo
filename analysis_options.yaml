@@ -1,0 +1,12 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  language:
+    strict-casts: true
+    strict-inference: false
+  exclude: [lib/**.freezed.dart, lib/**.g.dart]
+
+linter:
+  rules:
+     avoid_print: false
+     prefer_single_quotes: true
